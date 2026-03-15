@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Saifudine — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Dot grid -->
+  <div class="dot-grid" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a class="brand" href="#home">LS<span>.</span></a>
+
+      <div class="nav-center">
+        <span class="nav-badge">● Available for work</span>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main id="home" class="hero">
+    <div class="container hero-inner">
+
+      <div class="hero-topbar">
+        <span class="hero-loc"><i class="fas fa-location-dot"></i>&nbsp; Phnom Penh, Cambodia</span>
+        <span class="hero-counter">001 / PORTFOLIO</span>
+      </div>
+
+      <div class="hero-name-block">
+        <div class="hero-name-photo-row">
+          <h1 class="hero-name">
+            <span class="hn" style="--i:0">Lim</span>
+            <span class="hn lime" style="--i:1">Saifudine</span>
+          </h1>
+          <div class="hero-photo-wrap">
+            <div class="hero-photo-inner">
+              <img src="assets/photo.png" alt="Lim Saifudine" class="hero-photo" />
+            </div>
+            <div class="hero-photo-frame" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="hero-wm" id="heroWm" aria-hidden="true">LS</div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-role-block">
+          <p class="hero-role">Junior Frontend Developer</p>
+          <p class="hero-sub">ICT Undergraduate · AUPP</p>
+        </div>
+
+        <p class="hero-lead">Motivated junior developer building strong foundations in programming, web development, and Linux through hands-on projects. Seeking internship &amp; entry-level roles.</p>
+
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn ghost" href="#contact">Get in Touch</a>
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <span class="vr"></span>
+          <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+          <span class="vr"></span>
+          <a href="mailto:limfudine@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+      </div>
+
+      <div class="hero-foot">
+        <span class="scroll-hint">Scroll ↓</span>
+        <span class="hero-gpa">GPA 3.5+</span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container">
+      <header class="sec-head reveal">
+        <div class="sec-meta">
+          <span class="sec-num">01</span>
+          <div class="sec-rule"></div>
+        </div>
+        <h2 class="sec-title">About</h2>
+      </header>
+
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p>I'm an undergraduate student at the <em>American University of Phnom Penh (AUPP)</em>, studying Information and Communication Technologies with a GPA of 3.5+.</p>
+          <p>I've built academic projects in Python and Java, and I enjoy learning by building — especially in web development and problem solving. Currently looking for internship or entry-level opportunities to grow as a software developer.</p>
+          <a class="btn ghost sm" href="mailto:limfudine@gmail.com">Say hello →</a>
+        </div>
+
+        <dl class="about-facts reveal">
+          <div class="af-row">
+            <dt>Location</dt>
+            <dd>Phnom Penh, Cambodia</dd>
+          </div>
+          <div class="af-row">
+            <dt>Degree</dt>
+            <dd>Bachelor's in ICT — Junior Standing</dd>
+          </div>
+          <div class="af-row">
+            <dt>Duration</dt>
+            <dd>2024 – 2028</dd>
+          </div>
+          <div class="af-row">
+            <dt>GPA</dt>
+            <dd class="hi">3.5+</dd>
+          </div>
+          <div class="af-row">
+            <dt>Status</dt>
+            <dd class="hi">Open to internships &amp; entry-level roles</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section alt">
+    <div class="container">
+      <header class="sec-head reveal">
+        <div class="sec-meta">
+          <span class="sec-num">02</span>
+          <div class="sec-rule"></div>
+        </div>
+        <h2 class="sec-title">Skills</h2>
+      </header>
+
+      <div class="skills-list reveal">
+        <div class="sk-row">
+          <span class="sk-cat">Programming</span>
+          <div class="sk-tags">
+            <span class="sk-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="sk-tag"><i class="fab fa-java"></i> Java</span>
+          </div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-cat">Web Development</span>
+          <div class="sk-tags">
+            <span class="sk-tag lit"><i class="fab fa-html5"></i> HTML</span>
+            <span class="sk-tag lit"><i class="fab fa-css3-alt"></i> CSS</span>
+            <span class="sk-tag lit"><i class="fab fa-js-square"></i> JavaScript</span>
+            <span class="sk-tag lit"><i class="fab fa-react"></i> React</span>
+            <span class="sk-tag lit"><i class="fas fa-bolt"></i> Vite</span>
+          </div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-cat">Tools &amp; Concepts</span>
+          <div class="sk-tags">
+            <span class="sk-tag"><i class="fas fa-cube"></i> OOP</span>
+            <span class="sk-tag"><i class="fas fa-diagram-project"></i> Algorithms</span>
+            <span class="sk-tag"><i class="fas fa-bug"></i> Debugging</span>
+            <span class="sk-tag"><i class="fab fa-linux"></i> Linux CLI</span>
+          </div>
+        </div>
+        <div class="sk-row">
+          <span class="sk-cat">Soft Skills</span>
+          <div class="sk-tags">
+            <span class="sk-tag"><i class="fas fa-lightbulb"></i> Problem-solving</span>
+            <span class="sk-tag"><i class="fas fa-users"></i> Teamwork</span>
+            <span class="sk-tag"><i class="fas fa-comments"></i> Communication</span>
+            <span class="sk-tag"><i class="fas fa-eye"></i> Attention to Detail</span>
+            <span class="sk-tag"><i class="fas fa-tasks"></i> Project Management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="container">
+      <header class="sec-head reveal">
+        <div class="sec-meta">
+          <span class="sec-num">03</span>
+          <div class="sec-rule"></div>
+        </div>
+        <h2 class="sec-title">Projects</h2>
+      </header>
+
+      <div class="proj-group-label reveal">Academic Projects — Role: Product Concept &amp; Strategy</div>
+      <div class="proj-grid">
+        <article class="proj-card reveal">
+          <div class="pc-top">
+            <span class="pc-num">P.01</span>
+            <span class="pc-tech python"><i class="fab fa-python"></i> Python</span>
+          </div>
+          <h3 class="pc-title">Password Encryption System</h3>
+          <p class="pc-desc">Strengthened application security for user credential management by implementing a Python-based encryption system, applying industry-standard data protection principles to ensure secure storage and validation of sensitive information.</p>
+          <div class="pc-stack">Python · Encryption · Credential Validation</div>
+          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </article>
+
+        <article class="proj-card reveal">
+          <div class="pc-top">
+            <span class="pc-num">P.02</span>
+            <span class="pc-tech java"><i class="fab fa-java"></i> Java</span>
+          </div>
+          <h3 class="pc-title">Student Tracking System</h3>
+          <p class="pc-desc">Improved administrative efficiency for student data management by building a full-stack Java application with an intuitive frontend interface, leveraging object-oriented programming and automated CSV export to streamline attendance record-keeping.</p>
+          <div class="pc-stack">Java · OOP · CSV Export · Frontend UI</div>
+          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </article>
+      </div>
+
+      <div class="proj-group-label reveal">Web Development — Role: Sole Developer</div>
+      <div class="proj-grid">
+        <article class="proj-card reveal">
+          <div class="pc-top">
+            <span class="pc-num">P.03</span>
+            <span class="pc-tech web"><i class="fab fa-html5"></i> HTML · CSS · JS</span>
+          </div>
+          <h3 class="pc-title">Personal Portfolio Website</h3>
+          <p class="pc-desc">Delivered a fully responsive, mobile-friendly portfolio that effectively showcases projects and skills across all screen sizes, achieved through clean UI design principles and well-structured, maintainable code architecture.</p>
+          <div class="pc-stack">HTML · CSS · JavaScript · Responsive Design</div>
+          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </article>
+
+        <article class="proj-card reveal">
+          <div class="pc-top">
+            <span class="pc-num">P.04</span>
+            <span class="pc-tech react"><i class="fab fa-react"></i> Vite + React</span>
+          </div>
+          <h3 class="pc-title">MovieFlix – Movie Search Web App</h3>
+          <p class="pc-desc">Built a performant, real-time movie discovery platform with dynamic search and instant results, by integrating a live movie API with React state management and a Vite-optimized build pipeline for fast load times.</p>
+          <div class="pc-stack">Vite · React · REST API · State Management</div>
+          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section alt">
+    <div class="container">
+
+      <!-- top bar -->
+      <div class="contact-topbar reveal">
+        <div class="sec-meta">
+          <span class="sec-num">04</span>
+          <div class="sec-rule"></div>
+        </div>
+        <h2 class="sec-title">Contact</h2>
+        <p class="contact-sub">Have a project or opportunity? Let's talk.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- left: tagline + links -->
+        <div class="contact-left reveal">
+          <p class="contact-tagline">Open to internships,<br>freelance &amp; full-time <em>roles.</em></p>
+
+          <div class="contact-details">
+            <a href="tel:+85517474191" class="cd-row">
+              <span class="cd-icon"><i class="fas fa-phone"></i></span>
+              <div class="cd-info">
+                <span class="cd-label">Phone</span>
+                <span class="cd-value">+855-17-474-191</span>
+              </div>
+              <span class="cd-arrow">→</span>
+            </a>
+            <a href="mailto:limfudine@gmail.com" class="cd-row">
+              <span class="cd-icon"><i class="fas fa-envelope"></i></span>
+              <div class="cd-info">
+                <span class="cd-label">Email</span>
+                <span class="cd-value">limfudine@gmail.com</span>
+              </div>
+              <span class="cd-arrow">→</span>
+            </a>
+            <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="cd-row">
+              <span class="cd-icon"><i class="fab fa-github"></i></span>
+              <div class="cd-info">
+                <span class="cd-label">GitHub</span>
+                <span class="cd-value">github.com/FooDine458</span>
+              </div>
+              <span class="cd-arrow">→</span>
+            </a>
+            <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer" class="cd-row">
+              <span class="cd-icon"><i class="fab fa-linkedin-in"></i></span>
+              <div class="cd-info">
+                <span class="cd-label">LinkedIn</span>
+                <span class="cd-value">Lim Saifudine</span>
+              </div>
+              <span class="cd-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- right: form -->
+        <div class="contact-right reveal">
+          <div class="form-card">
+            <p class="form-title">Send a message</p>
+            <form id="contactForm" class="form" novalidate>
+              <div class="ff">
+                <input type="text" name="name" id="fn" placeholder=" " required />
+                <label for="fn">Your Name</label>
+              </div>
+              <div class="ff">
+                <input type="email" name="email" id="fe" placeholder=" " required />
+                <label for="fe">Your Email</label>
+              </div>
+              <div class="ff">
+                <textarea name="message" id="fm" rows="5" placeholder=" " required></textarea>
+                <label for="fm">Message</label>
+              </div>
+              <button class="btn primary full-w" type="submit">Send Message →</button>
+              <p class="form-hint" id="formHint" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="ft-brand">Lim Saifudine</span>
+      <span>© <span id="year"></span></span>
+      <span>Phnom Penh, Cambodia</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
