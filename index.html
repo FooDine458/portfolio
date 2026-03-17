@@ -6,7 +6,7 @@
   <title>Lim Saifudine — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -16,23 +16,28 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Dot grid -->
-  <div class="dot-grid" aria-hidden="true"></div>
+  <!-- Noise texture overlay -->
+  <canvas class="noise-canvas" id="noiseCanvas" aria-hidden="true"></canvas>
 
   <!-- HEADER -->
   <header class="header" id="header">
     <nav class="nav container">
-      <a class="brand" href="#home">LS<span>.</span></a>
+      <a class="brand" href="#home">
+        <span class="brand-ls">LS</span><span class="brand-dot">.</span>
+      </a>
 
       <div class="nav-center">
-        <span class="nav-badge">● Available for work</span>
+        <span class="nav-badge">
+          <span class="badge-pulse"></span>
+          Available for work
+        </span>
       </div>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about"><span class="nav-num">01</span>About</a></li>
+        <li><a href="#skills"><span class="nav-num">02</span>Skills</a></li>
+        <li><a href="#projects"><span class="nav-num">03</span>Projects</a></li>
+        <li><a href="#contact"><span class="nav-num">04</span>Contact</a></li>
       </ul>
 
       <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
@@ -43,77 +48,151 @@
 
   <!-- HERO -->
   <main id="home" class="hero">
+
+    <!-- Animated vertical grid lines -->
+    <div class="hero-grid" aria-hidden="true">
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+    </div>
+
+    <!-- Glow orbs -->
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+
     <div class="container hero-inner">
 
-      <div class="hero-topbar">
-        <span class="hero-loc"><i class="fas fa-location-dot"></i>&nbsp; Phnom Penh, Cambodia</span>
-        <span class="hero-counter">001 / PORTFOLIO</span>
+      <!-- Meta strip top -->
+      <div class="hero-strip">
+        <div class="strip-item">
+          <span class="strip-label">LOCATION</span>
+          <span class="strip-val"><i class="fas fa-location-dot"></i>&nbsp;Phnom Penh, KH</span>
+        </div>
+        <div class="strip-divider"></div>
+        <div class="strip-item">
+          <span class="strip-label">STATUS</span>
+          <span class="strip-val lime">Open to Opportunities</span>
+        </div>
+        <div class="strip-divider"></div>
+        <div class="strip-item">
+          <span class="strip-label">INDEX</span>
+          <span class="strip-val">001 / PORTFOLIO</span>
+        </div>
       </div>
 
-      <div class="hero-name-block">
-        <div class="hero-name-photo-row">
+      <!-- Main hero block -->
+      <div class="hero-main">
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">Junior Frontend Developer</span>
+          </div>
+
           <h1 class="hero-name">
             <span class="hn" style="--i:0">Lim</span>
-            <span class="hn lime" style="--i:1">Saifudine</span>
+            <span class="hn accent" style="--i:1">Saifudine</span>
           </h1>
-          <div class="hero-photo-wrap">
-            <div class="hero-photo-inner">
-              <img src="assets/photo.png" alt="Lim Saifudine" class="hero-photo" />
-            </div>
-            <div class="hero-photo-frame" aria-hidden="true"></div>
+
+          <p class="hero-desc">
+            ICT undergraduate at AUPP building strong foundations in web development, 
+            programming &amp; Linux through real-world projects.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#projects">
+              <span>View Projects</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn ghost" href="#contact">Get in Touch</a>
+          </div>
+
+          <div class="hero-socials">
+            <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="social-link" aria-label="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer" class="social-link" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:limfudine@gmail.com" class="social-link" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <span class="social-divider"></span>
+            <a href="mailto:limfudine@gmail.com" class="social-email">limfudine@gmail.com</a>
           </div>
         </div>
-        <div class="hero-wm" id="heroWm" aria-hidden="true">LS</div>
-      </div>
 
-      <div class="hero-body">
-        <div class="hero-role-block">
-          <p class="hero-role">Junior Frontend Developer</p>
-          <p class="hero-sub">ICT Undergraduate · AUPP</p>
-        </div>
+        <div class="hero-right">
+          <div class="hero-photo-wrap">
+            <div class="photo-corner photo-corner-tl" aria-hidden="true"></div>
+            <div class="photo-corner photo-corner-br" aria-hidden="true"></div>
+            <div class="hero-photo-inner">
+              <img src="assets/photo.png" alt="Lim Saifudine" class="hero-photo" />
+              <div class="photo-scan" aria-hidden="true"></div>
+            </div>
+            <div class="photo-tag">
+              <span class="ptag-gpa">3.5+ GPA</span>
+              <span class="ptag-sep">/</span>
+              <span class="ptag-uni">AUPP '28</span>
+            </div>
+          </div>
 
-        <p class="hero-lead">Motivated junior developer building strong foundations in programming, web development, and Linux through hands-on projects. Seeking internship &amp; entry-level roles.</p>
-
-        <div class="hero-cta">
-          <a class="btn primary" href="#projects">View Projects</a>
-          <a class="btn ghost" href="#contact">Get in Touch</a>
-        </div>
-
-        <div class="hero-socials">
-          <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer"><i class="fab fa-github"></i> GitHub</a>
-          <span class="vr"></span>
-          <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-          <span class="vr"></span>
-          <a href="mailto:limfudine@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+          <div class="hero-wm" id="heroWm" aria-hidden="true">LS</div>
         </div>
       </div>
 
-      <div class="hero-foot">
-        <span class="scroll-hint">Scroll ↓</span>
-        <span class="hero-gpa">GPA 3.5+</span>
+      <!-- Hero footer row -->
+      <div class="hero-footer">
+        <div class="scroll-indicator">
+          <div class="scroll-track"><div class="scroll-thumb"></div></div>
+          <span>Scroll to explore</span>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">4+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num">3.5</span>
+            <span class="stat-label">GPA</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num">2+</span>
+            <span class="stat-label">Yrs Coding</span>
+          </div>
+        </div>
       </div>
 
     </div>
   </main>
 
-  <!-- ABOUT -->
+  <!-- ── ABOUT ── -->
   <section id="about" class="section">
     <div class="container">
-      <header class="sec-head reveal">
-        <div class="sec-meta">
-          <span class="sec-num">01</span>
-          <div class="sec-rule"></div>
-        </div>
-        <h2 class="sec-title">About</h2>
-      </header>
+      <div class="sec-label reveal">
+        <span class="sl-num">01</span>
+        <span class="sl-dash"></span>
+        <span class="sl-text">About Me</span>
+      </div>
 
-      <div class="about-grid">
-        <div class="about-copy reveal">
-          <p>I'm an undergraduate student at the <em>American University of Phnom Penh (AUPP)</em>, studying Information and Communication Technologies with a GPA of 3.5+.</p>
-          <p>I've built academic projects in Python and Java, and I enjoy learning by building — especially in web development and problem solving. Currently looking for internship or entry-level opportunities to grow as a software developer.</p>
-          <a class="btn ghost sm" href="mailto:limfudine@gmail.com">Say hello →</a>
+      <div class="about-layout">
+
+        <!-- Left col: heading + copy stacked -->
+        <div class="about-left">
+          <div class="about-heading reveal">
+            <h2 class="sec-title">Building<br><em>the future,</em><br>one&nbsp;commit.</h2>
+          </div>
+          <div class="about-copy reveal">
+            <p>I'm an undergraduate student at the <strong>American University of Phnom Penh (AUPP)</strong>, studying Information and Communication Technologies with a GPA of 3.5+.</p>
+            <p>I've built academic projects in Python and Java, and I enjoy learning by building — especially in web development and problem solving. Currently looking for internship or entry-level opportunities to grow as a software developer.</p>
+            <a class="btn ghost sm" href="mailto:limfudine@gmail.com">Say hello →</a>
+          </div>
         </div>
 
+        <!-- Right col: facts table -->
         <dl class="about-facts reveal">
           <div class="af-row">
             <dt>Location</dt>
@@ -121,7 +200,7 @@
           </div>
           <div class="af-row">
             <dt>Degree</dt>
-            <dd>Bachelor's in ICT — Junior Standing</dd>
+            <dd>Bachelor's in ICT — Junior</dd>
           </div>
           <div class="af-row">
             <dt>Duration</dt>
@@ -133,35 +212,39 @@
           </div>
           <div class="af-row">
             <dt>Status</dt>
-            <dd class="hi">Open to internships &amp; entry-level roles</dd>
+            <dd class="hi">Open to internships</dd>
           </div>
         </dl>
+
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- ── SKILLS ── -->
   <section id="skills" class="section alt">
     <div class="container">
-      <header class="sec-head reveal">
-        <div class="sec-meta">
-          <span class="sec-num">02</span>
-          <div class="sec-rule"></div>
-        </div>
-        <h2 class="sec-title">Skills</h2>
-      </header>
+      <div class="sec-label reveal">
+        <span class="sl-num">02</span>
+        <span class="sl-dash"></span>
+        <span class="sl-text">Skills &amp; Tools</span>
+      </div>
 
-      <div class="skills-list reveal">
-        <div class="sk-row">
-          <span class="sk-cat">Programming</span>
-          <div class="sk-tags">
+      <h2 class="sec-title reveal">What I<br><em>Work With.</em></h2>
+
+      <div class="skills-bento reveal">
+
+        <div class="sk-card sk-wide">
+          <div class="skc-eyebrow">Programming Languages</div>
+          <div class="skc-tags">
             <span class="sk-tag"><i class="fab fa-python"></i> Python</span>
             <span class="sk-tag"><i class="fab fa-java"></i> Java</span>
           </div>
+          <div class="skc-bg-text" aria-hidden="true">CODE</div>
         </div>
-        <div class="sk-row">
-          <span class="sk-cat">Web Development</span>
-          <div class="sk-tags">
+
+        <div class="sk-card">
+          <div class="skc-eyebrow">Web Development</div>
+          <div class="skc-tags">
             <span class="sk-tag lit"><i class="fab fa-html5"></i> HTML</span>
             <span class="sk-tag lit"><i class="fab fa-css3-alt"></i> CSS</span>
             <span class="sk-tag lit"><i class="fab fa-js-square"></i> JavaScript</span>
@@ -169,152 +252,185 @@
             <span class="sk-tag lit"><i class="fas fa-bolt"></i> Vite</span>
           </div>
         </div>
-        <div class="sk-row">
-          <span class="sk-cat">Tools &amp; Concepts</span>
-          <div class="sk-tags">
+
+        <div class="sk-card">
+          <div class="skc-eyebrow">Tools &amp; Concepts</div>
+          <div class="skc-tags">
             <span class="sk-tag"><i class="fas fa-cube"></i> OOP</span>
             <span class="sk-tag"><i class="fas fa-diagram-project"></i> Algorithms</span>
             <span class="sk-tag"><i class="fas fa-bug"></i> Debugging</span>
-            <span class="sk-tag"><i class="fab fa-linux"></i> Linux CLI</span>
+           
           </div>
         </div>
-        <div class="sk-row">
-          <span class="sk-cat">Soft Skills</span>
-          <div class="sk-tags">
+
+        <div class="sk-card sk-accent-card">
+          <div class="skc-eyebrow">Soft Skills</div>
+          <div class="skc-tags">
             <span class="sk-tag"><i class="fas fa-lightbulb"></i> Problem-solving</span>
             <span class="sk-tag"><i class="fas fa-users"></i> Teamwork</span>
             <span class="sk-tag"><i class="fas fa-comments"></i> Communication</span>
-            <span class="sk-tag"><i class="fas fa-eye"></i> Attention to Detail</span>
-            <span class="sk-tag"><i class="fas fa-tasks"></i> Project Management</span>
+            <span class="sk-tag"><i class="fas fa-tasks"></i> Project Mgmt</span>
+            <span class="sk-tag"><i class="fas fa-eye"></i> Detail-oriented</span>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- ── PROJECTS ── -->
   <section id="projects" class="section">
     <div class="container">
-      <header class="sec-head reveal">
-        <div class="sec-meta">
-          <span class="sec-num">03</span>
-          <div class="sec-rule"></div>
-        </div>
-        <h2 class="sec-title">Projects</h2>
-      </header>
-
-      <div class="proj-group-label reveal">Academic Projects — Role: Product Concept &amp; Strategy</div>
-      <div class="proj-grid">
-        <article class="proj-card reveal">
-          <div class="pc-top">
-            <span class="pc-num">P.01</span>
-            <span class="pc-tech python"><i class="fab fa-python"></i> Python</span>
-          </div>
-          <h3 class="pc-title">Password Encryption System</h3>
-          <p class="pc-desc">Strengthened application security for user credential management by implementing a Python-based encryption system, applying industry-standard data protection principles to ensure secure storage and validation of sensitive information.</p>
-          <div class="pc-stack">Python · Encryption · Credential Validation</div>
-          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
-        </article>
-
-        <article class="proj-card reveal">
-          <div class="pc-top">
-            <span class="pc-num">P.02</span>
-            <span class="pc-tech java"><i class="fab fa-java"></i> Java</span>
-          </div>
-          <h3 class="pc-title">Student Tracking System</h3>
-          <p class="pc-desc">Improved administrative efficiency for student data management by building a full-stack Java application with an intuitive frontend interface, leveraging object-oriented programming and automated CSV export to streamline attendance record-keeping.</p>
-          <div class="pc-stack">Java · OOP · CSV Export · Frontend UI</div>
-          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
-        </article>
+      <div class="sec-label reveal">
+        <span class="sl-num">03</span>
+        <span class="sl-dash"></span>
+        <span class="sl-text">Selected Work</span>
       </div>
 
-      <div class="proj-group-label reveal">Web Development — Role: Sole Developer</div>
-      <div class="proj-grid">
-        <article class="proj-card reveal">
-          <div class="pc-top">
-            <span class="pc-num">P.03</span>
-            <span class="pc-tech web"><i class="fab fa-html5"></i> HTML · CSS · JS</span>
-          </div>
-          <h3 class="pc-title">Personal Portfolio Website</h3>
-          <p class="pc-desc">Delivered a fully responsive, mobile-friendly portfolio that effectively showcases projects and skills across all screen sizes, achieved through clean UI design principles and well-structured, maintainable code architecture.</p>
-          <div class="pc-stack">HTML · CSS · JavaScript · Responsive Design</div>
-          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
-        </article>
+      <h2 class="sec-title reveal">Projects<br><em>that matter.</em></h2>
 
-        <article class="proj-card reveal">
-          <div class="pc-top">
-            <span class="pc-num">P.04</span>
-            <span class="pc-tech react"><i class="fab fa-react"></i> Vite + React</span>
+      <div class="proj-list">
+
+        <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="proj-item reveal">
+          <div class="pi-index">P.01</div>
+          <div class="pi-info">
+            <h3 class="pi-title">Password Encryption System</h3>
+            <p class="pi-desc">Python-based encryption system for secure user credential management, applying industry-standard data protection principles.</p>
+            <div class="pi-stack">
+              <span>Python</span><span>Encryption</span><span>Credential Validation</span>
+            </div>
           </div>
-          <h3 class="pc-title">MovieFlix – Movie Search Web App</h3>
-          <p class="pc-desc">Built a performant, real-time movie discovery platform with dynamic search and instant results, by integrating a live movie API with React state management and a Vite-optimized build pipeline for fast load times.</p>
-          <div class="pc-stack">Vite · React · REST API · State Management</div>
-          <a class="pc-link" href="https://github.com/FooDine458" target="_blank" rel="noreferrer">View on GitHub →</a>
-        </article>
+          <div class="pi-meta">
+            <span class="pi-badge python"><i class="fab fa-python"></i> Python</span>
+            <span class="pi-type">Academic</span>
+          </div>
+          <div class="pi-arrow-wrap">
+            <span class="pi-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="proj-item reveal">
+          <div class="pi-index">P.02</div>
+          <div class="pi-info">
+            <h3 class="pi-title">Student Tracking System</h3>
+            <p class="pi-desc">Full-stack Java application with intuitive frontend UI leveraging OOP and automated CSV export for attendance record-keeping.</p>
+            <div class="pi-stack">
+              <span>Java</span><span>OOP</span><span>CSV Export</span><span>Frontend UI</span>
+            </div>
+          </div>
+          <div class="pi-meta">
+            <span class="pi-badge java"><i class="fab fa-java"></i> Java</span>
+            <span class="pi-type">Academic</span>
+          </div>
+          <div class="pi-arrow-wrap">
+            <span class="pi-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="proj-item reveal">
+          <div class="pi-index">P.03</div>
+          <div class="pi-info">
+            <h3 class="pi-title">Personal Portfolio Website</h3>
+            <p class="pi-desc">Fully responsive, mobile-friendly portfolio showcasing projects and skills across all screen sizes with clean UI architecture.</p>
+            <div class="pi-stack">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive</span>
+            </div>
+          </div>
+          <div class="pi-meta">
+            <span class="pi-badge web"><i class="fab fa-html5"></i> Web</span>
+            <span class="pi-type">Personal</span>
+          </div>
+          <div class="pi-arrow-wrap">
+            <span class="pi-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="proj-item reveal">
+          <div class="pi-index">P.04</div>
+          <div class="pi-info">
+            <h3 class="pi-title">MovieFlix – Movie Search App</h3>
+            <p class="pi-desc">Performant, real-time movie discovery platform with dynamic search by integrating live API with React state management.</p>
+            <div class="pi-stack">
+              <span>Vite</span><span>React</span><span>REST API</span><span>State Mgmt</span>
+            </div>
+          </div>
+          <div class="pi-meta">
+            <span class="pi-badge react"><i class="fab fa-react"></i> React</span>
+            <span class="pi-type">Personal</span>
+          </div>
+          <div class="pi-arrow-wrap">
+            <span class="pi-arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="proj-cta reveal">
+        <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="btn ghost">
+          <i class="fab fa-github"></i>&nbsp; View all on GitHub →
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ── CONTACT ── -->
   <section id="contact" class="section alt">
     <div class="container">
-
-      <!-- top bar -->
-      <div class="contact-topbar reveal">
-        <div class="sec-meta">
-          <span class="sec-num">04</span>
-          <div class="sec-rule"></div>
-        </div>
-        <h2 class="sec-title">Contact</h2>
-        <p class="contact-sub">Have a project or opportunity? Let's talk.</p>
+      <div class="sec-label reveal">
+        <span class="sl-num">04</span>
+        <span class="sl-dash"></span>
+        <span class="sl-text">Get in Touch</span>
       </div>
 
-      <div class="contact-grid">
-
-        <!-- left: tagline + links -->
+      <div class="contact-layout">
         <div class="contact-left reveal">
-          <p class="contact-tagline">Open to internships,<br>freelance &amp; full-time <em>roles.</em></p>
+          <h2 class="sec-title">Let's<br><em>work<br>together.</em></h2>
+          <p class="contact-blurb">Open to internships, freelance &amp; full-time roles. Have a project or opportunity? I'd love to hear from you.</p>
 
-          <div class="contact-details">
-            <a href="tel:+85517474191" class="cd-row">
-              <span class="cd-icon"><i class="fas fa-phone"></i></span>
-              <div class="cd-info">
-                <span class="cd-label">Phone</span>
-                <span class="cd-value">+855-17-474-191</span>
+          <div class="contact-links">
+            <a href="tel:+85517474191" class="cl-item">
+              <div class="cli-icon"><i class="fas fa-phone"></i></div>
+              <div class="cli-text">
+                <span class="cli-label">Phone</span>
+                <span class="cli-val">+855-17-474-191</span>
               </div>
-              <span class="cd-arrow">→</span>
+              <span class="cli-arr">↗</span>
             </a>
-            <a href="mailto:limfudine@gmail.com" class="cd-row">
-              <span class="cd-icon"><i class="fas fa-envelope"></i></span>
-              <div class="cd-info">
-                <span class="cd-label">Email</span>
-                <span class="cd-value">limfudine@gmail.com</span>
+            <a href="mailto:limfudine@gmail.com" class="cl-item">
+              <div class="cli-icon"><i class="fas fa-envelope"></i></div>
+              <div class="cli-text">
+                <span class="cli-label">Email</span>
+                <span class="cli-val">limfudine@gmail.com</span>
               </div>
-              <span class="cd-arrow">→</span>
+              <span class="cli-arr">↗</span>
             </a>
-            <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="cd-row">
-              <span class="cd-icon"><i class="fab fa-github"></i></span>
-              <div class="cd-info">
-                <span class="cd-label">GitHub</span>
-                <span class="cd-value">github.com/FooDine458</span>
+            <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="cl-item">
+              <div class="cli-icon"><i class="fab fa-github"></i></div>
+              <div class="cli-text">
+                <span class="cli-label">GitHub</span>
+                <span class="cli-val">github.com/FooDine458</span>
               </div>
-              <span class="cd-arrow">→</span>
+              <span class="cli-arr">↗</span>
             </a>
-            <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer" class="cd-row">
-              <span class="cd-icon"><i class="fab fa-linkedin-in"></i></span>
-              <div class="cd-info">
-                <span class="cd-label">LinkedIn</span>
-                <span class="cd-value">Lim Saifudine</span>
+            <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer" class="cl-item">
+              <div class="cli-icon"><i class="fab fa-linkedin-in"></i></div>
+              <div class="cli-text">
+                <span class="cli-label">LinkedIn</span>
+                <span class="cli-val">Lim Saifudine</span>
               </div>
-              <span class="cd-arrow">→</span>
+              <span class="cli-arr">↗</span>
             </a>
           </div>
         </div>
 
-        <!-- right: form -->
         <div class="contact-right reveal">
           <div class="form-card">
-            <p class="form-title">Send a message</p>
+            <div class="form-card-header">
+              <span class="fch-dot red"></span>
+              <span class="fch-dot yellow"></span>
+              <span class="fch-dot green"></span>
+              <span class="fch-title">new_message.txt</span>
+            </div>
             <form id="contactForm" class="form" novalidate>
               <div class="ff">
                 <input type="text" name="name" id="fn" placeholder=" " required />
@@ -328,21 +444,28 @@
                 <textarea name="message" id="fm" rows="5" placeholder=" " required></textarea>
                 <label for="fm">Message</label>
               </div>
-              <button class="btn primary full-w" type="submit">Send Message →</button>
+              <button class="btn primary full-w" type="submit">
+                <span>Send Message</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
               <p class="form-hint" id="formHint" aria-live="polite"></p>
             </form>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
-      <span class="ft-brand">Lim Saifudine</span>
-      <span>© <span id="year"></span></span>
-      <span>Phnom Penh, Cambodia</span>
+      <a class="ft-brand" href="#home">LS<span>.</span></a>
+      <div class="ft-center">
+        <span>Designed &amp; Built by Lim Saifudine</span>
+        <span class="ft-sep">·</span>
+        <span>© <span id="year"></span></span>
+      </div>
+      <span class="ft-loc"><i class="fas fa-location-dot"></i>&nbsp;Phnom Penh, Cambodia</span>
     </div>
   </footer>
 
