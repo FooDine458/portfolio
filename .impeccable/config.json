@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-08-21T10:59:06.430Z",
+        "reason": "corner-bracket crop-mark accents on hero photo (2 diagonal 24px L-shapes), not a side-border card pattern; pre-existing markup not touched this session"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-08-21T10:59:06.476Z",
+        "reason": "corner-bracket crop-mark accents (rounded-tl/rounded-br 6px on 24px corner marks), not a full-card rounded border+accent clash; pre-existing markup not touched this session"
+      }
+    ]
+  }
+}

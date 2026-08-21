@@ -37,26 +37,32 @@
 /* ── Custom Cursor ── */
 const cursor     = document.getElementById('cursor');
 const cursorRing = document.getElementById('cursorRing');
-let mx = -100, my = -100, rx = -100, ry = -100;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+let mx = -100;
+let my = -100;
+let cx = -100;
+let cy = -100;
+let rx = -100;
+let ry = -100;
 
-document.addEventListener('mousemove', e => {
-  mx = e.clientX;
-  my = e.clientY;
-});
+if (!isCoarsePointer && cursor && cursorRing) {
+  document.addEventListener('pointermove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+  }, { passive: true });
 
-(function tickCursor() {
-  rx += (mx - rx) * 0.13;
-  ry += (my - ry) * 0.13;
-  if (cursor) {
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-  }
-  if (cursorRing) {
-    cursorRing.style.left = rx + 'px';
-    cursorRing.style.top  = ry + 'px';
-  }
-  requestAnimationFrame(tickCursor);
-})();
+  (function tickCursor() {
+    cx += (mx - cx) * 0.45;
+    cy += (my - cy) * 0.45;
+    rx += (mx - rx) * 0.24;
+    ry += (my - ry) * 0.24;
+
+    cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate3d(-50%, -50%, 0)`;
+    cursorRing.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate3d(-50%, -50%, 0) scale(${document.body.classList.contains('cursor-hover') ? 1.45 : 1})`;
+    requestAnimationFrame(tickCursor);
+  })();
+}
 
 document.querySelectorAll('a, button, .proj-item, .sk-tag, .cl-item').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
@@ -65,19 +71,28 @@ document.querySelectorAll('a, button, .proj-item, .sk-tag, .cl-item').forEach(el
 
 /* ── Hero Watermark Parallax ── */
 const heroWm = document.getElementById('heroWm');
-document.addEventListener('mousemove', e => {
-  if (!heroWm) return;
-  const xPct = (e.clientX / window.innerWidth  - 0.5);
-  const yPct = (e.clientY / window.innerHeight - 0.5);
-  heroWm.style.transform = `translateY(-50%) translate(${xPct * 22}px, ${yPct * 12}px)`;
-});
+let wmX = 0;
+let wmY = 0;
+if (heroWm && !prefersReducedMotion) {
+  document.addEventListener('pointermove', e => {
+    wmX = (e.clientX / window.innerWidth - 0.5) * 22;
+    wmY = (e.clientY / window.innerHeight - 0.5) * 12;
+  }, { passive: true });
+
+  (function tickWatermark() {
+    heroWm.style.transform = `translateY(-50%) translate3d(${wmX}px, ${wmY}px, 0)`;
+    requestAnimationFrame(tickWatermark);
+  })();
+}
 
 /* ── Mobile Menu ── */
 const menuBtn  = document.getElementById('menuBtn');
 const navLinks = document.getElementById('navLinks');
 
 menuBtn.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
+  const open = navLinks.classList.contains('hidden');
+  navLinks.classList.toggle('hidden', !open);
+  navLinks.classList.toggle('flex', open);
   menuBtn.setAttribute('aria-expanded', String(open));
   const spans = menuBtn.querySelectorAll('span');
   if (open) {
@@ -91,7 +106,8 @@ menuBtn.addEventListener('click', () => {
 
 navLinks.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
+    navLinks.classList.add('hidden');
+    navLinks.classList.remove('flex');
     menuBtn.setAttribute('aria-expanded', 'false');
     menuBtn.querySelectorAll('span').forEach(s => s.style.transform = '');
   });
@@ -117,6 +133,7 @@ const revealIO = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      entry.target.classList.add('opacity-100', 'translate-y-0');
       revealIO.unobserve(entry.target);
     }
   });
@@ -132,7 +149,17 @@ const navIO = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const id = entry.target.getAttribute('id');
-      navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+      navAs.forEach(a => {
+        const isActive = a.getAttribute('href') === `#${id}`;
+        a.classList.toggle('text-limeaccent', isActive);
+        a.classList.toggle('bg-limeaccent/10', isActive);
+        a.classList.toggle('text-muted', !isActive);
+        const navNum = a.querySelector('.nav-num');
+        if (navNum) {
+          navNum.classList.toggle('text-limeaccent', isActive);
+          navNum.classList.toggle('text-muted', !isActive);
+        }
+      });
     }
   });
 }, { threshold: 0.3 });
@@ -146,6 +173,12 @@ window.addEventListener('scroll', () => {
     ? '0 2px 48px rgba(0,0,0,0.7)'
     : 'none';
 }, { passive: true });
+
+/* ── Page Load Fade-In ── */
+window.addEventListener('load', () => {
+  document.body.classList.remove('opacity-0');
+  document.body.classList.add('opacity-100');
+}, { once: true });
 
 /* ── Stagger reveal delays for bento cards ── */
 document.querySelectorAll('.sk-card').forEach((card, i) => {
