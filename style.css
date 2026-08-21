@@ -1,1 +1,184 @@
-/* Styles migrated to Tailwind utility classes in index.html. */
+/* ==========================================================================
+   Lim Saifudine - portfolio
+   Only what Tailwind utilities cannot express lives here:
+   grain overlay, marquee keyframes, reveal transitions, form state machine.
+
+   Shape system (locked, see index.html):
+     interactive (buttons, chips, tags) .... rounded-full
+     containers  (cards, media, panels) .... rounded-2xl  (16px)
+     inputs ................................ rounded-lg   (8px)
+   ========================================================================== */
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* z-index scale - no arbitrary z-9999 anywhere */
+  --z-grain: 5;
+  --z-header: 40;
+  --z-menu: 50;
+  --z-skip: 60;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* offset anchor targets so the sticky header never covers a heading */
+  scroll-padding-top: 88px;
+}
+
+/* A display utility class (flex, grid) outranks the [hidden] attribute in the
+   UA stylesheet, which would leave hidden elements on screen. Restore it. */
+[hidden] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Grain. Static SVG turbulence on one fixed, pointer-events-none layer.
+   Replaces the old per-frame canvas noise loop, which repainted the whole
+   viewport every 80ms on the main thread.
+   -------------------------------------------------------------------------- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal. Driven by IntersectionObserver in main.js, never by a
+   scroll event listener. Animates transform + opacity only.
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* --------------------------------------------------------------------------
+   Hero entry. Sequenced so the eye lands role -> name -> pitch -> action.
+   -------------------------------------------------------------------------- */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-step {
+  opacity: 0;
+  animation: riseIn 0.85s var(--ease-out-expo) forwards;
+}
+
+.hero-step-1 { animation-delay: 0.05s; }
+.hero-step-2 { animation-delay: 0.16s; }
+.hero-step-3 { animation-delay: 0.28s; }
+.hero-step-4 { animation-delay: 0.4s; }
+.hero-step-5 { animation-delay: 0.2s; }
+
+/* --------------------------------------------------------------------------
+   Marquee. Shows stack breadth at a glance instead of a 12-item list.
+   Track is duplicated in markup; translating one half reads as endless.
+   -------------------------------------------------------------------------- */
+@keyframes marqueeSlide {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  animation: marqueeSlide 38s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   Work grid filtering. Cells leave via transform + opacity, then are pulled
+   from layout so the bento reflows with no blank tiles.
+   -------------------------------------------------------------------------- */
+.work-cell {
+  transition:
+    opacity 0.4s var(--ease-out-expo),
+    transform 0.4s var(--ease-out-expo);
+}
+
+.work-cell.is-hidden {
+  display: none;
+}
+
+.work-cell.is-leaving {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   Contact form state machine. One panel, three faces.
+   -------------------------------------------------------------------------- */
+.form-face {
+  display: none;
+}
+
+.form-face.is-active {
+  display: block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation: spin 0.7s linear infinite;
+}
+
+/* Field error styling is toggled from JS via .has-error on the field wrapper */
+.field.has-error input,
+.field.has-error textarea {
+  border-color: #ff8a7a;
+}
+
+.field .field-error {
+  display: none;
+}
+
+.field.has-error .field-error {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion. Everything above collapses to static, per WCAG.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .hero-step {
+    opacity: 1;
+    transform: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+}

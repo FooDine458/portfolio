@@ -1,190 +1,349 @@
-/* ── Noise Canvas ── */
-(function initNoise() {
-  const canvas = document.getElementById('noiseCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+/* ==========================================================================
+   Lim Saifudine - portfolio
 
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+   No scroll event listeners anywhere in this file. Everything that reacts to
+   position uses IntersectionObserver, which the browser batches off the main
+   thread. Everything that animates does so through transform and opacity.
+   ========================================================================== */
 
-  function renderNoise() {
-    const w = canvas.width, h = canvas.height;
-    const imageData = ctx.createImageData(w, h);
-    const data = imageData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      const v = Math.random() * 255 | 0;
-      data[i] = data[i+1] = data[i+2] = v;
-      data[i+3] = 255;
-    }
-    ctx.putImageData(imageData, 0, 0);
-  }
+/* --------------------------------------------------------------------------
+   Contact backend.
 
-  resize();
-  renderNoise();
+   Web3Forms relays a form post straight to an inbox with no server of our own,
+   which suits a static site on Vercel. Get a key by entering the destination
+   email at https://web3forms.com - it arrives by email, no account needed.
+   Paste it below and the form starts delivering for real.
 
-  let lastNoise = 0;
-  function tickNoise(t) {
-    if (t - lastNoise > 80) { renderNoise(); lastNoise = t; }
-    requestAnimationFrame(tickNoise);
-  }
-  requestAnimationFrame(tickNoise);
+   Until then the form degrades honestly: it opens a prefilled mail draft
+   instead of silently pretending the message was delivered.
+   -------------------------------------------------------------------------- */
+const CONTACT = {
+  endpoint: 'https://api.web3forms.com/submit',
+  accessKey: 'PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE',
+  fallbackEmail: 'limfudine@gmail.com'
+};
 
-  window.addEventListener('resize', () => { resize(); renderNoise(); });
-})();
+const isConfigured = () =>
+  CONTACT.accessKey && !CONTACT.accessKey.startsWith('PASTE_YOUR');
 
-/* ── Custom Cursor ── */
-const cursor     = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-let mx = -100;
-let my = -100;
-let cx = -100;
-let cy = -100;
-let rx = -100;
-let ry = -100;
 
-if (!isCoarsePointer && cursor && cursorRing) {
-  document.addEventListener('pointermove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-  }, { passive: true });
+/* --------------------------------------------------------------------------
+   Footer year
+   -------------------------------------------------------------------------- */
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  (function tickCursor() {
-    cx += (mx - cx) * 0.45;
-    cy += (my - cy) * 0.45;
-    rx += (mx - rx) * 0.24;
-    ry += (my - ry) * 0.24;
+/* --------------------------------------------------------------------------
+   Mobile menu
+   -------------------------------------------------------------------------- */
+const menuBtn = document.getElementById('menuBtn');
+const menuIcon = document.getElementById('menuIcon');
+const mobileMenu = document.getElementById('mobileMenu');
 
-    cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate3d(-50%, -50%, 0)`;
-    cursorRing.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate3d(-50%, -50%, 0) scale(${document.body.classList.contains('cursor-hover') ? 1.45 : 1})`;
-    requestAnimationFrame(tickCursor);
-  })();
-}
-
-document.querySelectorAll('a, button, .proj-item, .sk-tag, .cl-item').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-});
-
-/* ── Hero Watermark Parallax ── */
-const heroWm = document.getElementById('heroWm');
-let wmX = 0;
-let wmY = 0;
-if (heroWm && !prefersReducedMotion) {
-  document.addEventListener('pointermove', e => {
-    wmX = (e.clientX / window.innerWidth - 0.5) * 22;
-    wmY = (e.clientY / window.innerHeight - 0.5) * 12;
-  }, { passive: true });
-
-  (function tickWatermark() {
-    heroWm.style.transform = `translateY(-50%) translate3d(${wmX}px, ${wmY}px, 0)`;
-    requestAnimationFrame(tickWatermark);
-  })();
-}
-
-/* ── Mobile Menu ── */
-const menuBtn  = document.getElementById('menuBtn');
-const navLinks = document.getElementById('navLinks');
-
-menuBtn.addEventListener('click', () => {
-  const open = navLinks.classList.contains('hidden');
-  navLinks.classList.toggle('hidden', !open);
-  navLinks.classList.toggle('flex', open);
+function setMenu(open) {
+  mobileMenu.hidden = !open;
   menuBtn.setAttribute('aria-expanded', String(open));
-  const spans = menuBtn.querySelectorAll('span');
-  if (open) {
-    spans[0].style.transform = 'translateY(6.5px) rotate(45deg)';
-    spans[1].style.transform = 'translateY(-1px) rotate(-45deg)';
-  } else {
-    spans[0].style.transform = '';
-    spans[1].style.transform = '';
-  }
-});
+  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menuIcon.className = open ? 'ph-bold ph-x text-xl' : 'ph-bold ph-list text-xl';
+}
 
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navLinks.classList.add('hidden');
-    navLinks.classList.remove('flex');
-    menuBtn.setAttribute('aria-expanded', 'false');
-    menuBtn.querySelectorAll('span').forEach(s => s.style.transform = '');
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener('click', () => setMenu(mobileMenu.hidden));
+
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
   });
-});
 
-/* ── Footer Year ── */
-document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ── Contact Form ── */
-const form = document.getElementById('contactForm');
-const hint = document.getElementById('formHint');
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  hint.textContent = '✓ Message sent — I\'ll get back to you soon.';
-  form.reset();
-  form.querySelectorAll('input, textarea').forEach(el => el.blur());
-  setTimeout(() => hint.textContent = '', 5000);
-});
-
-/* ── Scroll Reveal ── */
-const revealIO = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      entry.target.classList.add('opacity-100', 'translate-y-0');
-      revealIO.unobserve(entry.target);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileMenu.hidden) {
+      setMenu(false);
+      menuBtn.focus();
     }
   });
-}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+}
 
-document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
+/* --------------------------------------------------------------------------
+   Scroll reveal. Elements rise once, then stop being observed.
+   -------------------------------------------------------------------------- */
+const revealTargets = document.querySelectorAll('.reveal');
 
-/* ── Active Nav on Scroll ── */
-const sections = document.querySelectorAll('section[id], main[id]');
-const navAs    = document.querySelectorAll('.nav-links a');
-
-const navIO = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navAs.forEach(a => {
-        const isActive = a.getAttribute('href') === `#${id}`;
-        a.classList.toggle('text-limeaccent', isActive);
-        a.classList.toggle('bg-limeaccent/10', isActive);
-        a.classList.toggle('text-muted', !isActive);
-        const navNum = a.querySelector('.nav-num');
-        if (navNum) {
-          navNum.classList.toggle('text-limeaccent', isActive);
-          navNum.classList.toggle('text-muted', !isActive);
-        }
+if (prefersReducedMotion) {
+  revealTargets.forEach((el) => el.classList.add('is-in'));
+} else {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        revealObserver.unobserve(entry.target);
       });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  revealTargets.forEach((el) => revealObserver.observe(el));
+
+  // Stagger cells within the work grid so the bento assembles rather than snaps
+  document.querySelectorAll('#workGrid .work-cell').forEach((cell, i) => {
+    cell.style.transitionDelay = `${Math.min(i, 6) * 0.06}s`;
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Header elevation. A one-pixel sentinel at the top of the document tells us
+   whether the page has moved, with no scroll handler involved.
+   -------------------------------------------------------------------------- */
+const header = document.getElementById('header');
+const topSentinel = document.getElementById('topSentinel');
+
+if (header && topSentinel) {
+  new IntersectionObserver(
+    ([entry]) => {
+      header.classList.toggle('shadow-[0_1px_40px_rgba(0,0,0,0.6)]', !entry.isIntersecting);
+    },
+    { threshold: 0 }
+  ).observe(topSentinel);
+}
+
+/* --------------------------------------------------------------------------
+   Active navigation. Tells the reader where they are in the page.
+   -------------------------------------------------------------------------- */
+const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+const sections = document.querySelectorAll('main section[id]');
+
+if (navLinks.length && sections.length) {
+  const setActive = (id) => {
+    navLinks.forEach((link) => {
+      const active = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('text-lime', active);
+      link.classList.toggle('bg-white/5', active);
+      link.classList.toggle('text-dim', !active);
+    });
+  };
+
+  const navObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    // A thin band just under the header: whichever section crosses it wins,
+    // which keeps tall sections from holding the highlight too long.
+    { threshold: 0, rootMargin: '-80px 0px -75% 0px' }
+  );
+
+  sections.forEach((section) => navObserver.observe(section));
+}
+
+/* --------------------------------------------------------------------------
+   Work filter. Chips narrow the bento by category and announce the result
+   to screen readers.
+   -------------------------------------------------------------------------- */
+const chips = Array.from(document.querySelectorAll('.filter-chip'));
+const workCells = Array.from(document.querySelectorAll('#workGrid .work-cell'));
+const workEmpty = document.getElementById('workEmpty');
+const workCount = document.getElementById('workCount');
+
+const CHIP_ON = ['border-lime', 'bg-lime', 'text-ink'];
+const CHIP_OFF = ['border-line', 'text-dim', 'hover:border-lime/30', 'hover:text-lime'];
+
+function applyFilter(filter) {
+  let shown = 0;
+
+  workCells.forEach((cell) => {
+    const match = filter === 'all' || cell.dataset.cat === filter;
+    if (match) shown += 1;
+
+    if (prefersReducedMotion) {
+      cell.classList.toggle('is-hidden', !match);
+      cell.classList.remove('is-leaving');
+      return;
+    }
+
+    if (match) {
+      cell.classList.remove('is-hidden');
+      // Next frame, so the browser has a layout to transition from
+      requestAnimationFrame(() => cell.classList.remove('is-leaving'));
+    } else {
+      cell.classList.add('is-leaving');
+      setTimeout(() => {
+        if (cell.classList.contains('is-leaving')) cell.classList.add('is-hidden');
+      }, 220);
     }
   });
-}, { threshold: 0.3 });
 
-sections.forEach(s => navIO.observe(s));
+  if (workEmpty) workEmpty.hidden = shown > 0;
+  if (workCount) {
+    workCount.textContent =
+      filter === 'all'
+        ? `Showing all ${shown} projects.`
+        : `Showing ${shown} ${filter} ${shown === 1 ? 'project' : 'projects'}.`;
+  }
+}
 
-/* ── Header shadow on scroll ── */
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-  header.style.boxShadow = window.scrollY > 20
-    ? '0 2px 48px rgba(0,0,0,0.7)'
-    : 'none';
-}, { passive: true });
+chips.forEach((chip) => {
+  chip.addEventListener('click', () => {
+    chips.forEach((other) => {
+      const on = other === chip;
+      other.setAttribute('aria-pressed', String(on));
+      other.classList.remove(...(on ? CHIP_OFF : CHIP_ON));
+      other.classList.add(...(on ? CHIP_ON : CHIP_OFF));
+    });
 
-/* ── Page Load Fade-In ── */
-window.addEventListener('load', () => {
-  document.body.classList.remove('opacity-0');
-  document.body.classList.add('opacity-100');
-}, { once: true });
-
-/* ── Stagger reveal delays for bento cards ── */
-document.querySelectorAll('.sk-card').forEach((card, i) => {
-  card.style.transitionDelay = `${i * 0.06}s`;
+    applyFilter(chip.dataset.filter);
+  });
 });
 
-document.querySelectorAll('.proj-item').forEach((item, i) => {
-  item.style.transitionDelay = `${i * 0.05}s`;
-});
+/* --------------------------------------------------------------------------
+   Contact form
+   -------------------------------------------------------------------------- */
+const form = document.getElementById('contactForm');
+const faceForm = document.getElementById('faceForm');
+const faceSent = document.getElementById('faceSent');
+const submitBtn = document.getElementById('submitBtn');
+const submitLabel = document.getElementById('submitLabel');
+const submitIcon = document.getElementById('submitIcon');
+const formError = document.getElementById('formError');
+const formErrorText = document.getElementById('formErrorText');
+const resetBtn = document.getElementById('resetBtn');
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+const rules = {
+  name: (v) => v.trim().length >= 2,
+  email: (v) => EMAIL_RE.test(v.trim()),
+  message: (v) => v.trim().length >= 10
+};
+
+function fieldWrap(name) {
+  return document.querySelector(`.field[data-field="${name}"]`);
+}
+
+function validateField(name, value) {
+  const ok = rules[name](value);
+  const wrap = fieldWrap(name);
+  if (wrap) wrap.classList.toggle('has-error', !ok);
+  const input = document.getElementById(name);
+  if (input) input.setAttribute('aria-invalid', String(!ok));
+  return ok;
+}
+
+function setSubmitting(on) {
+  submitBtn.disabled = on;
+  submitLabel.textContent = on ? 'Sending' : 'Send message';
+  submitIcon.className = on
+    ? 'ph-bold ph-spinner-gap spinning'
+    : 'ph-bold ph-paper-plane-tilt';
+}
+
+function showSent({ delivered }) {
+  const heading = faceSent.querySelector('h3');
+  const body = faceSent.querySelector('p');
+
+  if (delivered) {
+    heading.textContent = 'Message sent';
+    body.textContent =
+      'Thanks for reaching out. It is in my inbox and I will get back to you soon.';
+  } else {
+    heading.textContent = 'Your mail app is open';
+    body.textContent =
+      'Direct sending is not switched on yet, so your message is waiting there as a draft. Hit send and it reaches me.';
+  }
+
+  faceForm.classList.remove('is-active');
+  faceSent.classList.add('is-active');
+}
+
+function openMailDraft(data) {
+  const subject = encodeURIComponent(`Portfolio message from ${data.name}`);
+  const body = encodeURIComponent(`${data.message}\n\nFrom: ${data.name} (${data.email})`);
+  window.location.href = `mailto:${CONTACT.fallbackEmail}?subject=${subject}&body=${body}`;
+}
+
+if (form) {
+  // Validate on blur, clear the error as soon as the user starts fixing it
+  Object.keys(rules).forEach((name) => {
+    const input = document.getElementById(name);
+    if (!input) return;
+
+    input.addEventListener('blur', () => validateField(name, input.value));
+    input.addEventListener('input', () => {
+      const wrap = fieldWrap(name);
+      if (wrap && wrap.classList.contains('has-error')) {
+        validateField(name, input.value);
+      }
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formError.hidden = true;
+
+    const data = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value
+    };
+
+    // Validate everything, then focus the first field that failed
+    const failed = Object.keys(rules).filter((name) => !validateField(name, data[name]));
+    if (failed.length) {
+      document.getElementById(failed[0]).focus();
+      return;
+    }
+
+    // Honeypot: a filled hidden field means a bot. Fail quietly.
+    if (form.querySelector('[name="botcheck"]').value) return;
+
+    if (!isConfigured()) {
+      openMailDraft(data);
+      showSent({ delivered: false });
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const res = await fetch(CONTACT.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: CONTACT.accessKey,
+          subject: `Portfolio message from ${data.name}`,
+          from_name: 'Portfolio contact form',
+          name: data.name,
+          email: data.email,
+          message: data.message
+        })
+      });
+
+      const result = await res.json().catch(() => ({}));
+
+      if (res.ok && result.success) {
+        form.reset();
+        showSent({ delivered: true });
+      } else {
+        throw new Error(result.message || 'The message service rejected that request.');
+      }
+    } catch (err) {
+      formErrorText.textContent = `${err.message} You can also email me directly at ${CONTACT.fallbackEmail}.`;
+      formError.hidden = false;
+    } finally {
+      setSubmitting(false);
+    }
+  });
+}
+
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    form.reset();
+    Object.keys(rules).forEach((name) => {
+      const wrap = fieldWrap(name);
+      if (wrap) wrap.classList.remove('has-error');
+    });
+    faceSent.classList.remove('is-active');
+    faceForm.classList.add('is-active');
+    document.getElementById('name').focus();
+  });
+}

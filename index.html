@@ -1,349 +1,621 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lim Saifudine — Portfolio</title>
+
+  <title>Lim Saifudine, Junior Frontend Developer</title>
+  <meta name="description" content="ICT undergraduate at AUPP in Phnom Penh building web and mobile projects in React, Flutter and Java. Open to internships and entry-level roles." />
+  <meta name="author" content="Lim Saifudine" />
+  <link rel="canonical" href="https://portfolio-saifudine.vercel.app/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio-saifudine.vercel.app/" />
+  <meta property="og:title" content="Lim Saifudine, Junior Frontend Developer" />
+  <meta property="og:description" content="ICT undergraduate at AUPP building web and mobile projects in React, Flutter and Java. Open to internships." />
+  <meta property="og:image" content="https://portfolio-saifudine.vercel.app/assets/portrait.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lim Saifudine, Junior Frontend Developer" />
+  <meta name="twitter:description" content="ICT undergraduate at AUPP building web and mobile projects in React, Flutter and Java." />
+  <meta name="twitter:image" content="https://portfolio-saifudine.vercel.app/assets/portrait.jpg" />
+  <meta name="theme-color" content="#0a0e13" />
+
+  <!-- LS monogram, drawn as a flat wordmark so it needs no binary asset -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0e13'/%3E%3Ctext x='32' y='44' font-family='Verdana,sans-serif' font-size='30' font-weight='700' fill='%23c8ff00' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
+    /* Palette: one cool-neutral family, one accent. Dark theme is locked
+       page-wide (the brand is lime on near-black), so no section inverts. */
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            bg: '#0b0f14',
-            bg2: '#0f1520',
-            surface: '#121a24',
-            textdim: '#b2bbca',
-            muted: '#7b879c',
-            limeaccent: '#c8ff00'
+            ink:   '#0a0e13',
+            ink2:  '#0e141c',
+            panel: '#141c26',
+            line:  'rgba(255,255,255,0.09)',
+            text:  '#e8edf4',
+            dim:   '#9dabbd',
+            faint: '#7d8b9e',
+            lime:  '#c8ff00',
+            warn:  '#ff8a7a'
           },
-          boxShadow: {
-            lime: '0 10px 36px rgba(200,255,0,.22)'
+          fontFamily: {
+            display: ['Syne', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            sans: ['Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
           },
-          keyframes: {
-            scrollFast: {
-              '0%': { transform: 'translate3d(0,0,0)', opacity: '1' },
-              '58%': { transform: 'translate3d(16px,0,0)', opacity: '.55' },
-              '60%': { transform: 'translate3d(0,0,0)', opacity: '0' },
-              '100%': { transform: 'translate3d(0,0,0)', opacity: '1' }
-            },
-            pulseFast: {
-              '0%,100%': { opacity: '1', transform: 'scale(1)' },
-              '50%': { opacity: '.7', transform: 'scale(.92)' }
-            }
-          },
-          animation: {
-            scrollFast: 'scrollFast 1.05s cubic-bezier(0.4,0,0.2,1) infinite',
-            pulseFast: 'pulseFast 1.35s cubic-bezier(0.4,0,0.2,1) infinite'
-          }
+          maxWidth: { shell: '1240px' }
         }
       }
     };
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&amp;display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="opacity-0 transition-opacity duration-500 ease-out bg-bg text-slate-100 font-['JetBrains_Mono'] text-[14px] leading-7 overflow-x-hidden cursor-none antialiased max-md:cursor-auto">
 
-  <div id="cursor" class="cursor fixed z-[10000] h-1.5 w-1.5 rounded-full bg-limeaccent pointer-events-none -translate-x-1/2 -translate-y-1/2 max-md:hidden"></div>
-  <div id="cursorRing" class="cursor-ring fixed z-[9999] h-8 w-8 rounded-full border border-limeaccent/50 pointer-events-none -translate-x-1/2 -translate-y-1/2 opacity-60 max-md:hidden"></div>
+<body class="grain bg-ink text-text font-sans antialiased overflow-x-hidden">
 
-  <canvas id="noiseCanvas" aria-hidden="true" class="noise-canvas fixed inset-0 z-[9998] pointer-events-none opacity-[0.025] h-full w-full"></canvas>
+  <a href="#work" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-lime focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-ink">
+    Skip to content
+  </a>
 
-  <header id="header" class="header sticky top-0 z-50 bg-bg/85 backdrop-blur-2xl border-b border-white/10">
-    <nav class="nav mx-auto w-[min(1240px,92%)] h-[62px] flex items-center justify-between gap-5">
-      <a href="#home" class="brand font-['Syne'] text-[20px] font-extrabold tracking-[2px]">
-        <span class="text-slate-100">LS</span><span class="text-limeaccent">.</span>
+  <!-- Sentinel: header state is observed, never computed in a scroll handler -->
+  <div id="topSentinel" aria-hidden="true" class="absolute top-0 h-px w-full"></div>
+
+  <header id="header" class="sticky top-0 z-40 border-b border-line bg-ink/80 backdrop-blur-xl transition-shadow duration-300">
+    <nav aria-label="Primary" class="mx-auto flex h-[72px] w-[min(1240px,92%)] items-center justify-between gap-6">
+
+      <a href="#top" class="font-display text-xl font-extrabold tracking-tight">
+        LS<span class="text-lime">.</span>
       </a>
 
-      <div class="nav-center flex-1 justify-center hidden md:flex">
-        <span class="nav-badge inline-flex items-center gap-2 rounded-full border border-limeaccent/30 bg-limeaccent/10 px-3.5 py-1 text-[11px] tracking-[1.2px] text-limeaccent">
-          <span class="badge-pulse animate-pulseFast inline-block h-1.5 w-1.5 rounded-full bg-limeaccent"></span>
-          Available for work
-        </span>
-      </div>
-
-      <ul id="navLinks" class="nav-links hidden md:flex items-center gap-1 text-[11px] uppercase tracking-[1.2px] fixed md:static left-0 right-0 top-[60px] md:top-auto flex-col md:flex-row bg-bg/95 md:bg-transparent backdrop-blur-2xl md:backdrop-blur-none border-b border-white/10 md:border-0 p-3 md:p-0 z-40">
-        <li><a href="#about" class="group block rounded-md px-4 py-2 text-muted hover:text-limeaccent hover:bg-limeaccent/10 transition"><span class="nav-num mr-1.5 text-[9px] font-bold tracking-[1.5px] text-muted group-hover:text-limeaccent">01</span>About</a></li>
-        <li><a href="#skills" class="group block rounded-md px-4 py-2 text-muted hover:text-limeaccent hover:bg-limeaccent/10 transition"><span class="nav-num mr-1.5 text-[9px] font-bold tracking-[1.5px] text-muted group-hover:text-limeaccent">02</span>Skills</a></li>
-        <li><a href="#projects" class="group block rounded-md px-4 py-2 text-muted hover:text-limeaccent hover:bg-limeaccent/10 transition"><span class="nav-num mr-1.5 text-[9px] font-bold tracking-[1.5px] text-muted group-hover:text-limeaccent">03</span>Projects</a></li>
-        <li><a href="#contact" class="group block rounded-md px-4 py-2 text-muted hover:text-limeaccent hover:bg-limeaccent/10 transition"><span class="nav-num mr-1.5 text-[9px] font-bold tracking-[1.5px] text-muted group-hover:text-limeaccent">04</span>Contact</a></li>
+      <ul class="hidden items-center gap-1 text-sm text-dim lg:flex">
+        <li><a href="#about"   class="nav-link rounded-full px-4 py-2 transition-colors hover:bg-white/5 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">About</a></li>
+        <li><a href="#work"    class="nav-link rounded-full px-4 py-2 transition-colors hover:bg-white/5 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">Work</a></li>
+        <li><a href="#toolkit" class="nav-link rounded-full px-4 py-2 transition-colors hover:bg-white/5 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">Toolkit</a></li>
+        <li><a href="#contact" class="nav-link rounded-full px-4 py-2 transition-colors hover:bg-white/5 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">Contact</a></li>
       </ul>
 
-      <button id="menuBtn" aria-label="Toggle menu" aria-expanded="false" class="menu-btn md:hidden flex-col justify-center gap-1.5 border border-white/15 rounded-md px-3 py-2.5">
-        <span class="block h-[1.5px] w-[18px] bg-slate-100 transition-transform duration-300"></span>
-        <span class="block h-[1.5px] w-[18px] bg-slate-100 transition-transform duration-300"></span>
-      </button>
+      <div class="flex items-center gap-3">
+        <!-- Live availability state, the one status dot on the page -->
+        <span class="hidden items-center gap-2 rounded-full border border-lime/25 bg-lime/10 px-3.5 py-1.5 font-mono text-xs text-lime xl:inline-flex">
+          <span class="h-1.5 w-1.5 rounded-full bg-lime"></span>
+          Open to internships
+        </span>
+
+        <a href="#contact" class="hidden rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime sm:block">
+          Message me
+        </a>
+
+        <button id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"
+          class="grid h-11 w-11 place-items-center rounded-full border border-line text-text transition-colors hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime lg:hidden">
+          <i id="menuIcon" class="ph-bold ph-list text-xl" aria-hidden="true"></i>
+        </button>
+      </div>
     </nav>
+
+    <div id="mobileMenu" hidden class="border-t border-line bg-ink/95 px-[4%] py-4 backdrop-blur-xl lg:hidden">
+      <ul class="flex flex-col gap-1 text-base">
+        <li><a href="#about"   class="block rounded-lg px-3 py-3 text-dim transition-colors hover:bg-white/5 hover:text-text">About</a></li>
+        <li><a href="#work"    class="block rounded-lg px-3 py-3 text-dim transition-colors hover:bg-white/5 hover:text-text">Work</a></li>
+        <li><a href="#toolkit" class="block rounded-lg px-3 py-3 text-dim transition-colors hover:bg-white/5 hover:text-text">Toolkit</a></li>
+        <li><a href="#contact" class="block rounded-lg px-3 py-3 text-dim transition-colors hover:bg-white/5 hover:text-text">Contact</a></li>
+      </ul>
+    </div>
   </header>
 
-  <main id="home" class="hero relative overflow-hidden min-h-[calc(100vh-62px)] flex items-stretch">
-    <div class="hero-grid pointer-events-none absolute inset-0 z-0 flex justify-around">
-      <div class="h-full w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-      <div class="h-full w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-      <div class="h-full w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-      <div class="h-full w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-      <div class="h-full w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-    </div>
+  <main id="top">
 
-    <div class="absolute -left-[8%] -top-[20%] h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,rgba(200,255,0,0.12),transparent_70%)] blur-[120px] opacity-35 pointer-events-none"></div>
-    <div class="absolute right-[5%] -bottom-[10%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(200,255,0,0.08),transparent_70%)] blur-[120px] opacity-35 pointer-events-none"></div>
+    <!-- ===== Hero: asymmetric split. Four text elements, nothing more. ===== -->
+    <section class="relative overflow-hidden pb-20 pt-16 md:pb-28 md:pt-24">
+      <div aria-hidden="true" class="pointer-events-none absolute -left-[10%] -top-[30%] h-[620px] w-[620px] rounded-full bg-[radial-gradient(circle,rgba(200,255,0,0.10),transparent_70%)] blur-[130px]"></div>
 
-    <div class="container relative z-10 mx-auto w-[min(1240px,92%)] py-12 md:py-14 px-2 md:px-6 flex flex-col">
-      <div class="hero-strip reveal opacity-0 translate-y-7 transition-all duration-500 ease-out mb-10 md:mb-16 flex flex-wrap items-center gap-5 md:gap-8">
-        <div class="strip-item flex flex-col">
-          <span class="text-[9px] tracking-[2.5px] font-bold uppercase text-muted">Location</span>
-          <span class="text-[12px] text-textdim"><i class="fas fa-location-dot text-limeaccent"></i>&nbsp;Phnom Penh, KH</span>
-        </div>
-        <div class="h-9 w-px bg-white/12 hidden md:block"></div>
-        <div class="strip-item flex flex-col">
-          <span class="text-[9px] tracking-[2.5px] font-bold uppercase text-muted">Status</span>
-          <span class="text-[12px] text-limeaccent">Open to Opportunities</span>
-        </div>
-        <div class="h-9 w-px bg-white/12 hidden md:block"></div>
-        <div class="strip-item flex flex-col">
-          <span class="text-[9px] tracking-[2.5px] font-bold uppercase text-muted">Index</span>
-          <span class="text-[12px] text-textdim">001 / PORTFOLIO</span>
-        </div>
-      </div>
+      <div class="relative mx-auto grid w-[min(1240px,92%)] items-center gap-14 lg:grid-cols-[1.15fr_.85fr] lg:gap-20">
+        <div>
+          <p class="hero-step hero-step-1 mb-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-lime">
+            <span class="h-px w-8 bg-lime"></span>
+            Junior Frontend Developer
+          </p>
 
-      <div class="hero-main grid grid-cols-1 lg:grid-cols-[1fr_.75fr] gap-10 lg:gap-20 items-center flex-1">
-        <div class="hero-left reveal opacity-0 translate-y-7 transition-all duration-500 ease-out">
-          <div class="hero-eyebrow flex items-center gap-3.5 mb-6">
-            <span class="h-[1.5px] w-9 bg-limeaccent"></span>
-            <span class="text-[12px] tracking-[2px] uppercase font-bold text-limeaccent">Junior Frontend Developer</span>
-          </div>
-
-          <h1 class="hero-name font-['Syne'] font-extrabold leading-[0.88] tracking-[-3px] text-[clamp(56px,7.5vw,108px)] mb-8 flex flex-col">
-            <span class="hn">Lim</span>
-            <span class="hn text-limeaccent">Saifudine</span>
+          <h1 class="hero-step hero-step-2 mb-7 font-display text-[clamp(2.5rem,9.5vw,5.75rem)] font-extrabold leading-[0.92] tracking-[-0.03em]">
+            Lim<br /><span class="text-lime">Saifudine</span>
           </h1>
 
-          <p class="hero-desc text-[14px] leading-[1.9] text-textdim max-w-[44ch] mb-8">ICT undergraduate at AUPP building strong foundations in web development, programming &amp; Linux through real-world projects.</p>
+          <p class="hero-step hero-step-3 mb-9 max-w-[52ch] text-lg leading-relaxed text-dim">
+            ICT undergraduate at AUPP building web and mobile projects in React, Flutter and Java. Looking for an internship.
+          </p>
 
-          <div class="hero-actions flex flex-wrap gap-3 mb-8">
-            <a href="#projects" class="btn primary inline-flex items-center gap-2 rounded-md px-6 py-3 text-[11px] uppercase tracking-[1.5px] font-bold bg-limeaccent text-[#07090d] hover:-translate-y-0.5 hover:shadow-lime transition">
-              <span>View Projects</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="hero-step hero-step-4 flex flex-wrap gap-3">
+            <a href="#work" class="group inline-flex items-center gap-2.5 rounded-full bg-lime px-7 py-3.5 font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              View work
+              <i class="ph-bold ph-arrow-right transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true"></i>
             </a>
-            <a href="#contact" class="btn ghost inline-flex items-center gap-2 rounded-md px-6 py-3 text-[11px] uppercase tracking-[1.5px] font-bold border border-white/15 text-textdim hover:text-limeaccent hover:bg-limeaccent/10 hover:border-limeaccent/30 hover:-translate-y-0.5 transition">Get in Touch</a>
-          </div>
-
-          <div class="hero-socials flex flex-wrap items-center gap-2.5 text-muted">
-            <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="social-link h-9 w-9 rounded-md border border-white/15 flex items-center justify-center text-[13px] hover:text-limeaccent hover:border-limeaccent/35 hover:bg-limeaccent/10 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer" class="social-link h-9 w-9 rounded-md border border-white/15 flex items-center justify-center text-[13px] hover:text-limeaccent hover:border-limeaccent/35 hover:bg-limeaccent/10 transition" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="mailto:limfudine@gmail.com" class="social-link h-9 w-9 rounded-md border border-white/15 flex items-center justify-center text-[13px] hover:text-limeaccent hover:border-limeaccent/35 hover:bg-limeaccent/10 transition" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            <span class="h-5 w-px bg-white/15"></span>
-            <a href="mailto:limfudine@gmail.com" class="text-[11px] tracking-[.8px] text-muted hover:text-limeaccent transition">limfudine@gmail.com</a>
+            <a href="#contact" class="inline-flex items-center gap-2.5 rounded-full border border-line px-7 py-3.5 font-semibold text-dim transition-colors duration-200 hover:border-lime/30 hover:bg-lime/5 hover:text-lime active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              Message me
+            </a>
           </div>
         </div>
 
-        <div class="hero-right reveal opacity-0 translate-y-7 transition-all duration-500 ease-out relative flex justify-center lg:justify-start lg:order-none order-first">
-          <div class="hero-photo-wrap relative w-full max-w-[260px] md:max-w-[380px]">
-            <div class="absolute -top-px -left-px h-6 w-6 border-t-2 border-l-2 border-limeaccent rounded-tl"></div>
-            <div class="absolute -bottom-px -right-px h-6 w-6 border-b-2 border-r-2 border-limeaccent rounded-br"></div>
-            <div class="hero-photo-inner relative overflow-hidden rounded-[20px] border border-white/15 aspect-[3/4] shadow-[0_0_0_1px_rgba(200,255,0,0.1),0_32px_80px_rgba(0,0,0,.7)]">
-              <img src="assets/photo.png" alt="Lim Saifudine" class="hero-photo h-full w-full object-cover object-top grayscale-[15%] brightness-90 hover:grayscale-0 hover:brightness-100 transition duration-500" />
-              <div class="photo-scan pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_3px,rgba(0,0,0,0.03)_3px,rgba(0,0,0,0.03)_4px)]"></div>
-            </div>
-            <div class="photo-tag absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap inline-flex items-center gap-2 rounded-full border border-limeaccent/30 bg-surface px-4 py-1.5 text-[11px] tracking-[1.5px]">
-              <span class="text-limeaccent font-bold">3.5+ GPA</span>
-              <span class="text-muted">/</span>
-              <span class="text-textdim">AUPP '28</span>
-            </div>
+        <div class="hero-step hero-step-5 relative mx-auto w-full max-w-[340px] lg:mx-0">
+          <div class="overflow-hidden rounded-2xl border border-line bg-panel shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]">
+            <img src="assets/portrait.jpg" width="900" height="1202" fetchpriority="high" decoding="async"
+              alt="Lim Saifudine, photographed in a dark studio setting"
+              class="aspect-[3/4] h-full w-full object-cover object-top" />
           </div>
-
-          <div id="heroWm" aria-hidden="true" class="hero-wm hidden lg:block absolute right-[-18%] top-1/2 -translate-y-1/2 font-['Syne'] text-[clamp(80px,14vw,180px)] font-extrabold tracking-[-6px] text-transparent [text-stroke:1px_rgba(200,255,0,0.05)] [-webkit-text-stroke:1px_rgba(200,255,0,0.05)] select-none pointer-events-none">LS</div>
         </div>
       </div>
+    </section>
 
-      <div class="hero-footer reveal opacity-0 translate-y-7 transition-all duration-500 ease-out mt-10 md:mt-16 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-        <div class="scroll-indicator flex items-center gap-3.5 text-[11px] tracking-[2px] uppercase text-muted">
-          <div class="scroll-track h-4 w-8 rounded-full border border-muted flex items-center p-0.5"><div class="scroll-thumb h-2 w-2 rounded-full bg-limeaccent animate-scrollFast"></div></div>
-          <span class="hidden sm:inline">Scroll to explore</span>
-        </div>
-        <div class="hero-stats flex items-center gap-4 md:gap-6">
-          <div class="stat text-right flex flex-col"><span class="font-['Syne'] font-extrabold text-[18px] md:text-[22px] leading-none tracking-tight text-limeaccent">7+</span><span class="text-[9px] md:text-[10px] uppercase tracking-[1.5px] text-muted">Projects</span></div>
-          <div class="h-7 w-px bg-white/15"></div>
-          <div class="stat text-right flex flex-col"><span class="font-['Syne'] font-extrabold text-[18px] md:text-[22px] leading-none tracking-tight text-limeaccent">3.5</span><span class="text-[9px] md:text-[10px] uppercase tracking-[1.5px] text-muted">GPA</span></div>
-          <div class="h-7 w-px bg-white/15"></div>
-          <div class="stat text-right flex flex-col"><span class="font-['Syne'] font-extrabold text-[18px] md:text-[22px] leading-none tracking-tight text-limeaccent">2+</span><span class="text-[9px] md:text-[10px] uppercase tracking-[1.5px] text-muted">Yrs Coding</span></div>
-        </div>
+    <!-- ===== Marquee: stack breadth at a glance, instead of a 12-item list ===== -->
+    <section aria-label="Technologies I work with" class="marquee overflow-hidden border-y border-line bg-ink2 py-5">
+      <div class="marquee-track flex w-max gap-10 whitespace-nowrap">
+        <!-- Duplicated once so the -50% translation loops seamlessly -->
+        <ul class="flex shrink-0 items-center gap-10 font-mono text-sm uppercase tracking-[0.16em] text-faint">
+          <li>React</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>JavaScript</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Flutter</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Dart</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Java</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Python</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Tailwind</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Vite</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Git</li><li aria-hidden="true" class="text-lime">/</li>
+          <li>Linux</li><li aria-hidden="true" class="text-lime">/</li>
+        </ul>
+        <ul aria-hidden="true" class="flex shrink-0 items-center gap-10 font-mono text-sm uppercase tracking-[0.16em] text-faint">
+          <li>React</li><li class="text-lime">/</li>
+          <li>JavaScript</li><li class="text-lime">/</li>
+          <li>Flutter</li><li class="text-lime">/</li>
+          <li>Dart</li><li class="text-lime">/</li>
+          <li>Java</li><li class="text-lime">/</li>
+          <li>Python</li><li class="text-lime">/</li>
+          <li>Tailwind</li><li class="text-lime">/</li>
+          <li>Vite</li><li class="text-lime">/</li>
+          <li>Git</li><li class="text-lime">/</li>
+          <li>Linux</li><li class="text-lime">/</li>
+        </ul>
       </div>
-    </div>
-  </main>
+    </section>
 
-  <section id="about" class="section py-20 md:py-28">
-    <div class="mx-auto w-[min(1240px,92%)]">
-      <div class="sec-label reveal opacity-0 translate-y-7 transition-all duration-500 ease-out mb-8 flex items-center gap-3.5"><span class="font-['Syne'] text-[11px] font-extrabold tracking-[3px] text-limeaccent">01</span><span class="h-px w-7 bg-limeaccent/30"></span><span class="text-[11px] uppercase tracking-[2px] text-muted">About Me</span></div>
-      <div class="about-layout grid grid-cols-1 lg:grid-cols-[1.1fr_.9fr] gap-10 lg:gap-20">
-        <div class="about-left">
-          <div class="about-heading reveal opacity-0 translate-y-7 transition-all duration-500 ease-out"><h2 class="font-['Syne'] font-extrabold text-[clamp(36px,6.5vw,88px)] leading-[0.92] tracking-[-2.5px] mb-8">Building<br><em class="not-italic text-limeaccent">the future,</em><br>one&nbsp;commit.</h2></div>
-          <div class="about-copy reveal opacity-0 translate-y-7 transition-all duration-500 ease-out text-textdim text-[14px] leading-8 space-y-5">
-            <p>I'm an undergraduate student at the <strong class="text-slate-100">American University of Phnom Penh (AUPP)</strong>, studying Information and Communication Technologies with a GPA of 3.5+.</p>
-            <p>I've built academic projects in Python and Java, and I enjoy learning by building - especially in web development and problem solving. Currently looking for internship or entry-level opportunities to grow as a software developer.</p>
-            <a href="mailto:limfudine@gmail.com" class="btn ghost inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-[10px] uppercase tracking-[1.5px] font-bold border border-white/15 text-textdim hover:text-limeaccent hover:bg-limeaccent/10 hover:border-limeaccent/30 transition">Say hello -&gt;</a>
-          </div>
+    <!-- ===== About: vertical editorial stack + facts grid ===== -->
+    <section id="about" class="py-24 md:py-32">
+      <div class="mx-auto w-[min(1240px,92%)]">
+        <h2 class="reveal mb-8 max-w-[16ch] font-display text-[clamp(2.25rem,5.5vw,4.25rem)] font-extrabold leading-[0.95] tracking-[-0.025em]">
+          I learn by <span class="text-lime">building things</span> that run.
+        </h2>
+
+        <div class="reveal mb-16 max-w-[62ch] space-y-5 text-lg leading-relaxed text-dim">
+          <p>
+            I study Information and Communication Technologies at the American University of Phnom Penh, where I keep a GPA above 3.5. Most of what I know came from shipping projects rather than sitting exams.
+          </p>
+          <p>
+            That means a Flutter recipe app with data I scraped myself, a Java solver where I benchmarked two algorithms against each other, and the site you are reading now. I am looking for an internship where I can do more of this with a team.
+          </p>
         </div>
 
-        <dl class="about-facts reveal opacity-0 translate-y-7 transition-all duration-500 ease-out flex flex-col">
-          <div class="af-row grid grid-cols-[88px_1fr] gap-5 border-y border-white/10 py-4"><dt class="text-[9px] uppercase tracking-[2px] text-muted font-bold">Location</dt><dd class="text-[13px] text-textdim">Phnom Penh, Cambodia</dd></div>
-          <div class="af-row grid grid-cols-[88px_1fr] gap-5 border-b border-white/10 py-4"><dt class="text-[9px] uppercase tracking-[2px] text-muted font-bold">Degree</dt><dd class="text-[13px] text-textdim">Bachelor's in ICT - Junior</dd></div>
-          <div class="af-row grid grid-cols-[88px_1fr] gap-5 border-b border-white/10 py-4"><dt class="text-[9px] uppercase tracking-[2px] text-muted font-bold">Duration</dt><dd class="text-[13px] text-textdim">2024 - 2028</dd></div>
-          <div class="af-row grid grid-cols-[88px_1fr] gap-5 border-b border-white/10 py-4"><dt class="text-[9px] uppercase tracking-[2px] text-muted font-bold">GPA</dt><dd class="text-[13px] text-limeaccent font-semibold">3.5+</dd></div>
-          <div class="af-row grid grid-cols-[88px_1fr] gap-5 border-b border-white/10 py-4"><dt class="text-[9px] uppercase tracking-[2px] text-muted font-bold">Status</dt><dd class="text-[13px] text-limeaccent font-semibold">Open to internships</dd></div>
+        <dl class="reveal grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4">
+          <div class="bg-ink p-6">
+            <dt class="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-faint">Projects shipped</dt>
+            <dd class="font-mono text-4xl font-bold tabular-nums tracking-tight text-lime">7</dd>
+          </div>
+          <div class="bg-ink p-6">
+            <dt class="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-faint">GPA</dt>
+            <dd class="font-mono text-4xl font-bold tabular-nums tracking-tight text-lime">3.5</dd>
+          </div>
+          <div class="bg-ink p-6">
+            <dt class="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-faint">Graduating</dt>
+            <dd class="font-mono text-4xl font-bold tabular-nums tracking-tight text-lime">2028</dd>
+          </div>
+          <div class="bg-ink p-6">
+            <dt class="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-faint">Based in</dt>
+            <dd class="font-display text-2xl font-extrabold leading-tight text-text">Phnom&nbsp;Penh<span class="block text-base font-medium text-faint">Cambodia</span></dd>
+          </div>
         </dl>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="skills" class="section alt py-20 md:py-28 bg-bg2 border-y border-white/10">
-    <div class="mx-auto w-[min(1240px,92%)]">
-      <div class="sec-label reveal opacity-0 translate-y-7 transition-all duration-500 ease-out mb-8 flex items-center gap-3.5"><span class="font-['Syne'] text-[11px] font-extrabold tracking-[3px] text-limeaccent">02</span><span class="h-px w-7 bg-limeaccent/30"></span><span class="text-[11px] uppercase tracking-[2px] text-muted">Skills &amp; Tools</span></div>
-      <h2 class="reveal opacity-0 translate-y-7 transition-all duration-500 ease-out font-['Syne'] font-extrabold text-[clamp(36px,6.5vw,88px)] leading-[0.92] tracking-[-2.5px] mb-10 md:mb-16">What I<br><em class="not-italic text-limeaccent">Work With.</em></h2>
+    <!-- ===== Work: filterable bento. Seven projects, seven cells. ===== -->
+    <section id="work" class="border-y border-line bg-ink2 py-24 md:py-32">
+      <div class="mx-auto w-[min(1240px,92%)]">
 
-      <div class="skills-rail reveal opacity-0 translate-y-7 transition-all duration-500 ease-out border-t border-white/10">
-        <article class="skill-row py-6 border-b border-white/10 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-4 md:gap-7">
-          <div class="sr-head flex items-baseline gap-3"><span class="sr-num font-['Syne'] text-[12px] tracking-[2px] font-bold text-limeaccent">01</span><h3 class="sr-title font-['Syne'] font-bold text-[clamp(20px,2.8vw,30px)] leading-tight">Programming Languages</h3></div>
-          <div class="sr-body space-y-3"><p class="text-[12px] text-muted leading-7">Core languages I use for problem solving, coursework, and app logic.</p><div class="skc-tags flex flex-wrap gap-2"><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fab fa-python"></i> Python</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fab fa-java"></i> Java</span></div></div>
-        </article>
-        <article class="skill-row py-6 border-b border-white/10 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-4 md:gap-7">
-          <div class="sr-head flex items-baseline gap-3"><span class="sr-num font-['Syne'] text-[12px] tracking-[2px] font-bold text-limeaccent">02</span><h3 class="sr-title font-['Syne'] font-bold text-[clamp(20px,2.8vw,30px)] leading-tight">Web Development</h3></div>
-          <div class="sr-body space-y-3"><p class="text-[12px] text-muted leading-7">Frontend stack for responsive interfaces and interactive user experiences.</p><div class="skc-tags flex flex-wrap gap-2"><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fab fa-html5"></i> HTML</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fab fa-css3-alt"></i> CSS</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fab fa-js-square"></i> JavaScript</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fab fa-react"></i> React</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-bolt"></i> Vite</span></div></div>
-        </article>
-        <article class="skill-row py-6 border-b border-white/10 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-4 md:gap-7">
-          <div class="sr-head flex items-baseline gap-3"><span class="sr-num font-['Syne'] text-[12px] tracking-[2px] font-bold text-limeaccent">03</span><h3 class="sr-title font-['Syne'] font-bold text-[clamp(20px,2.8vw,30px)] leading-tight">Tools &amp; Concepts</h3></div>
-          <div class="sr-body space-y-3"><p class="text-[12px] text-muted leading-7">Technical foundations I rely on when designing and building software.</p><div class="skc-tags flex flex-wrap gap-2"><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-cube"></i> OOP</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-diagram-project"></i> Algorithms</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-bug"></i> Debugging</span></div></div>
-        </article>
-        <article class="skill-row py-6 border-b border-white/10 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-4 md:gap-7">
-          <div class="sr-head flex items-baseline gap-3"><span class="sr-num font-['Syne'] text-[12px] tracking-[2px] font-bold text-limeaccent">04</span><h3 class="sr-title font-['Syne'] font-bold text-[clamp(20px,2.8vw,30px)] leading-tight">Soft Skills</h3></div>
-          <div class="sr-body space-y-3"><p class="text-[12px] text-muted leading-7">Collaboration and communication skills that help teams ship better work.</p><div class="skc-tags flex flex-wrap gap-2"><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-lightbulb"></i> Problem-solving</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-users"></i> Teamwork</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-comments"></i> Communication</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-tasks"></i> Project Mgmt</span><span class="sk-tag inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] text-textdim"><i class="fas fa-eye"></i> Detail-oriented</span></div></div>
-        </article>
-      </div>
-    </div>
-  </section>
+        <div class="reveal mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <h2 class="max-w-[14ch] font-display text-[clamp(2.25rem,5.5vw,4.25rem)] font-extrabold leading-[0.95] tracking-[-0.025em]">
+            Selected <span class="text-lime">work</span>
+          </h2>
 
-  <section id="projects" class="section py-20 md:py-28">
-    <div class="mx-auto w-[min(1240px,92%)]">
-      <div class="sec-label reveal opacity-0 translate-y-7 transition-all duration-500 ease-out mb-8 flex items-center gap-3.5"><span class="font-['Syne'] text-[11px] font-extrabold tracking-[3px] text-limeaccent">03</span><span class="h-px w-7 bg-limeaccent/30"></span><span class="text-[11px] uppercase tracking-[2px] text-muted">Selected Work</span></div>
-      <h2 class="reveal opacity-0 translate-y-7 transition-all duration-500 ease-out font-['Syne'] font-extrabold text-[clamp(36px,6.5vw,88px)] leading-[0.92] tracking-[-2.5px] mb-10 md:mb-16">Projects<br><em class="not-italic text-limeaccent">that matter.</em></h2>
-
-      <div class="proj-list flex flex-col border-t border-white/10 mb-10">
-        <a href="https://github.com/FooDine458/Text-Encryption" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.01</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2 hover:text-limeaccent transition"><b>Password Encryption System</b></h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Python-based encryption system for secure user credential management, applying industry-standard data protection principles.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Python</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Encryption</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Credential Validation</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge python inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fab fa-python text-[#4b8bbe]"></i> Python</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Academic</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-
-        <a href="https://github.com/FooDine458/Java-Project" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.02</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2"><b>Student Tracking System</b></h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Full-stack Java application with intuitive frontend UI leveraging OOP and automated CSV export for attendance record-keeping.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Java</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">OOP</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">CSV Export</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Frontend UI</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge java inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fab fa-java text-[#f89820]"></i> Java</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Academic</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-
-        <a href="https://portfolio-foodine458s-projects.vercel.app" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.03</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2"><b>Portfolio</b> - Personal Website</h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Fully responsive, mobile-friendly portfolio showcasing projects and skills across all screen sizes with clean UI architecture.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">HTML</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">CSS</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">JavaScript</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Responsive</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge web inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fab fa-html5 text-[#e34c26]"></i> Web</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Personal</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-
-        <a href="https://movieflix-vert-sigma.vercel.app" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.04</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2"><b>MovieFlix </b>- Movie Search App</h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Performant, real-time movie discovery platform with dynamic search by integrating live API with React state management.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Vite</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">React</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">REST API</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">State Mgmt</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge react inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fab fa-react text-[#61dafb]"></i> React</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Personal</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-
-        <a href="https://github.com/FooDine458/DishGenie" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.05</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2"><b>DishGenie</b> - Mobile App</h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Built a cross-platform Flutter app to showcase Khmer recipes and suggest dishes based on available ingredients, improving meal discovery. Collected and structured Khmer recipe data by scraping with Python and storing it in CSV for efficient in-app use.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Flutter</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Dart</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Python</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">CSV Data</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge flutter inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fas fa-mobile-screen-button text-[#54c5f8]"></i> Flutter</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Personal</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-
-        <a href="https://khmer-proverbs-archive.vercel.app" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.06</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2"><b>Khmer Proverbs Archive</b></h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Community archive built for an ICT 340 course to preserve Khmer proverbs and culture - lets visitors browse, search, and submit entries for review before they're published.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">JavaScript</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Community Content</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Search</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge web inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fab fa-js-square text-[#f7df1e]"></i> JS</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Academic</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-
-        <a href="https://github.com/FooDine458/Sudoku" target="_blank" rel="noreferrer" class="proj-item reveal opacity-0 translate-y-7 transition-all duration-500 ease-out grid grid-cols-[40px_1fr_34px] md:grid-cols-[56px_1fr_auto_40px] items-start md:items-center gap-3 md:gap-8 py-6 md:py-9 border-b border-white/10 hover:bg-limeaccent/[0.03]">
-          <div class="pi-index font-['Syne'] text-[10px] tracking-[2px] font-extrabold text-muted">P.07</div>
-          <div class="pi-info"><h3 class="pi-title font-['Syne'] font-bold text-[clamp(18px,2.2vw,26px)] leading-tight mb-2"><b>Sudoku Solver</b></h3><p class="pi-desc hidden md:block text-[12px] leading-7 text-muted mb-2">Java solver comparing plain backtracking against a Minimum Remaining Values heuristic, benchmarking search-space reduction across easy and hard puzzles.</p><div class="pi-stack flex flex-wrap gap-1.5"><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Java</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Backtracking</span><span class="text-[10px] uppercase tracking-[1.5px] text-muted px-2.5 py-0.5 border border-white/15 rounded-full">Algorithms</span></div></div>
-          <div class="pi-meta hidden md:flex flex-col items-end gap-2.5"><span class="pi-badge java inline-flex items-center gap-1.5 rounded-md border border-white/15 px-3 py-1 text-[10px] tracking-[1px] font-bold"><i class="fab fa-java text-[#f89820]"></i> Java</span><span class="pi-type text-[10px] uppercase tracking-[1.5px] text-muted">Academic</span></div>
-          <div class="pi-arrow-wrap h-8 w-8 md:h-9 md:w-9 rounded-full border border-white/15 flex items-center justify-center"><span class="pi-arrow text-base text-muted">↗</span></div>
-        </a>
-      </div>
-
-      <div class="proj-cta reveal opacity-0 translate-y-7 transition-all duration-500 ease-out text-center">
-        <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="btn ghost inline-flex items-center gap-2 rounded-md px-6 py-3 text-[11px] uppercase tracking-[1.5px] font-bold border border-white/15 text-textdim hover:text-limeaccent hover:bg-limeaccent/10 hover:border-limeaccent/30 transition"><i class="fab fa-github"></i>&nbsp; View all on GitHub -&gt;</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="section alt py-20 md:py-28 bg-bg2 border-y border-white/10">
-    <div class="mx-auto w-[min(1240px,92%)]">
-      <div class="sec-label reveal opacity-0 translate-y-7 transition-all duration-500 ease-out mb-8 flex items-center gap-3.5"><span class="font-['Syne'] text-[11px] font-extrabold tracking-[3px] text-limeaccent">04</span><span class="h-px w-7 bg-limeaccent/30"></span><span class="text-[11px] uppercase tracking-[2px] text-muted">Get in Touch</span></div>
-
-      <div class="contact-layout grid grid-cols-1 lg:grid-cols-[.9fr_1.1fr] gap-8 lg:gap-20 items-start">
-        <div class="contact-left reveal opacity-0 translate-y-7 transition-all duration-500 ease-out">
-          <h2 class="font-['Syne'] font-extrabold text-[clamp(32px,6.5vw,88px)] leading-[0.92] tracking-[-2px] mb-4">Let's<br><em class="not-italic text-limeaccent">work<br>together.</em></h2>
-          <p class="text-[13px] leading-8 text-textdim max-w-[56ch]">Open to internships, freelance &amp; full-time roles. Have a project or opportunity? I'd love to hear from you.</p>
-
-          <div class="contact-links mt-8 flex flex-col">
-            <a href="mailto:limfudine@gmail.com" class="cl-item group flex items-center gap-4 py-4 border-y border-white/10 hover:pl-2 transition-all"><span class="cli-icon h-9 w-9 rounded-md border border-white/15 bg-white/5 flex items-center justify-center"><i class="fas fa-envelope text-limeaccent text-xs"></i></span><span class="cli-text min-w-0 flex-1"><span class="text-[9px] uppercase tracking-[2px] text-muted">Email</span><span class="cli-val text-[13px] text-textdim truncate group-hover:text-limeaccent">limfudine@gmail.com</span></span><span class="cli-arr text-muted group-hover:text-limeaccent group-hover:translate-x-1 transition">→</span></a>
-            <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="cl-item group flex items-center gap-4 py-4 border-b border-white/10 hover:pl-2 transition-all"><span class="cli-icon h-9 w-9 rounded-md border border-white/15 bg-white/5 flex items-center justify-center"><i class="fab fa-github text-limeaccent text-xs"></i></span><span class="cli-text min-w-0 flex-1"><span class="text-[9px] uppercase tracking-[2px] text-muted">GitHub</span><span class="cli-val text-[13px] text-textdim truncate group-hover:text-limeaccent">FooDine458</span></span><span class="cli-arr text-muted group-hover:text-limeaccent group-hover:translate-x-1 transition">→</span></a>
-            <a href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer" class="cl-item group flex items-center gap-4 py-4 border-b border-white/10 hover:pl-2 transition-all"><span class="cli-icon h-9 w-9 rounded-md border border-white/15 bg-white/5 flex items-center justify-center"><i class="fab fa-linkedin-in text-limeaccent text-xs"></i></span><span class="cli-text min-w-0 flex-1"><span class="text-[9px] uppercase tracking-[2px] text-muted">LinkedIn</span><span class="cli-val text-[13px] text-textdim truncate group-hover:text-limeaccent">Lim Saifudine</span></span><span class="cli-arr text-muted group-hover:text-limeaccent group-hover:translate-x-1 transition">→</span></a>
+          <div role="group" aria-label="Filter projects by type" class="flex shrink-0 flex-wrap gap-2">
+            <button type="button" data-filter="all" aria-pressed="true"
+              class="filter-chip rounded-full border border-lime bg-lime px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              All <span class="tabular-nums opacity-60">7</span>
+            </button>
+            <button type="button" data-filter="web" aria-pressed="false"
+              class="filter-chip rounded-full border border-line px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-dim transition-colors duration-200 hover:border-lime/30 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              Web <span class="tabular-nums opacity-60">3</span>
+            </button>
+            <button type="button" data-filter="mobile" aria-pressed="false"
+              class="filter-chip rounded-full border border-line px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-dim transition-colors duration-200 hover:border-lime/30 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              Mobile <span class="tabular-nums opacity-60">1</span>
+            </button>
+            <button type="button" data-filter="systems" aria-pressed="false"
+              class="filter-chip rounded-full border border-line px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-dim transition-colors duration-200 hover:border-lime/30 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              Systems <span class="tabular-nums opacity-60">3</span>
+            </button>
           </div>
         </div>
 
-        <div class="contact-right reveal opacity-0 translate-y-7 transition-all duration-500 ease-out">
-          <div class="form-card rounded-[20px] border border-white/10 bg-surface overflow-hidden">
-            <div class="form-card-header flex items-center gap-1.5 px-5 py-3.5 bg-white/5 border-b border-white/10"><span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span><span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span><span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span><span class="ml-2 text-[11px] text-muted">Message Me</span></div>
-            <form id="contactForm" class="form p-6 md:p-8" novalidate>
-              <div class="ff mb-4"><label for="fn" class="block text-[11px] tracking-[1px] text-muted mb-2">Your Name</label><input type="text" name="name" id="fn" required class="w-full bg-transparent border-b border-white/15 py-2 text-[13px] text-slate-100 outline-none focus:border-limeaccent transition" /></div>
-              <div class="ff mb-4"><label for="fe" class="block text-[11px] tracking-[1px] text-muted mb-2">Your Email</label><input type="email" name="email" id="fe" required class="w-full bg-transparent border-b border-white/15 py-2 text-[13px] text-slate-100 outline-none focus:border-limeaccent transition" /></div>
-              <div class="ff mb-2"><label for="fm" class="block text-[11px] tracking-[1px] text-muted mb-2">Message</label><textarea name="message" id="fm" rows="5" required class="w-full resize-none bg-transparent border-b border-white/15 py-2 text-[13px] text-slate-100 outline-none focus:border-limeaccent transition"></textarea></div>
-              <button type="submit" class="btn primary mt-5 w-full inline-flex justify-center items-center gap-2 rounded-md px-6 py-3.5 text-[11px] uppercase tracking-[1.5px] font-bold bg-limeaccent text-[#07090d] hover:-translate-y-0.5 hover:shadow-lime transition"><span>Send Message</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-              <p id="formHint" class="form-hint mt-3.5 min-h-[18px] text-[11px] tracking-[1.5px] text-limeaccent" aria-live="polite"></p>
-            </form>
+        <p id="workCount" role="status" aria-live="polite" class="sr-only">Showing all 7 projects.</p>
+
+        <div id="workGrid" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
+
+          <!-- MovieFlix: live, real screenshot, widest cell -->
+          <article data-cat="web" class="work-cell reveal group md:col-span-2 lg:col-span-4">
+            <a href="https://movieflix-vert-sigma.vercel.app" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              <div class="overflow-hidden border-b border-line">
+                <img src="assets/work-movieflix.jpg" width="1200" height="750" loading="lazy" decoding="async"
+                  alt="MovieFlix homepage showing a search field above a grid of film posters"
+                  class="aspect-[21/9] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <div class="mb-2 flex items-start justify-between gap-4">
+                  <h3 class="font-display text-2xl font-bold">MovieFlix</h3>
+                  <i class="ph-bold ph-arrow-up-right shrink-0 text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+                </div>
+                <p class="mb-5 max-w-[54ch] leading-relaxed text-dim">
+                  Movie search app that queries a live REST API as you type, with results, loading and empty states handled in React state.
+                </p>
+                <ul class="flex flex-wrap gap-2 font-mono text-xs text-faint">
+                  <li class="rounded-full border border-line px-3 py-1">React</li>
+                  <li class="rounded-full border border-line px-3 py-1">Vite</li>
+                  <li class="rounded-full border border-line px-3 py-1">REST API</li>
+                  <li class="rounded-full border border-lime/25 bg-lime/10 px-3 py-1 text-lime">Live</li>
+                </ul>
+              </div>
+            </a>
+          </article>
+
+          <!-- DishGenie -->
+          <article data-cat="mobile" class="work-cell reveal group lg:col-span-2">
+            <a href="https://github.com/FooDine458/DishGenie" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col justify-center rounded-2xl border border-line bg-panel p-6 transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <span class="font-mono text-xs uppercase tracking-[0.16em] text-lime">Dart</span>
+                <i class="ph-bold ph-arrow-up-right shrink-0 text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </div>
+              <h3 class="mb-2 font-display text-2xl font-bold">DishGenie</h3>
+              <p class="mb-5 leading-relaxed text-dim">
+                Flutter app that suggests Khmer dishes from the ingredients you already have. I scraped and structured the recipe data in Python.
+              </p>
+              <ul class="flex flex-wrap gap-2 font-mono text-xs text-faint">
+                <li class="rounded-full border border-line px-3 py-1">Flutter</li>
+                <li class="rounded-full border border-line px-3 py-1">Python</li>
+              </ul>
+            </a>
+          </article>
+
+          <!-- Sudoku -->
+          <article data-cat="systems" class="work-cell reveal group lg:col-span-2">
+            <a href="https://github.com/FooDine458/Sudoku" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col justify-center rounded-2xl border border-line bg-panel p-6 transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <span class="font-mono text-xs uppercase tracking-[0.16em] text-lime">Java</span>
+                <i class="ph-bold ph-arrow-up-right shrink-0 text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </div>
+              <h3 class="mb-2 font-display text-2xl font-bold">Sudoku Solver</h3>
+              <p class="mb-5 leading-relaxed text-dim">
+                Two solvers, benchmarked head to head: plain backtracking against backtracking with a minimum-remaining-values heuristic.
+              </p>
+              <ul class="flex flex-wrap gap-2 font-mono text-xs text-faint">
+                <li class="rounded-full border border-line px-3 py-1">Algorithms</li>
+                <li class="rounded-full border border-line px-3 py-1">Benchmarking</li>
+              </ul>
+            </a>
+          </article>
+
+          <!-- Khmer Proverbs Archive: live, real screenshot -->
+          <article data-cat="web" class="work-cell reveal group md:col-span-2 lg:col-span-4">
+            <a href="https://khmer-proverbs-archive.vercel.app" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              <div class="overflow-hidden border-b border-line">
+                <img src="assets/work-proverbs.jpg" width="1200" height="750" loading="lazy" decoding="async"
+                  alt="Khmer Living Archive landing page with a large proverb set in cream type on a dark background"
+                  class="aspect-[21/9] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <div class="mb-2 flex items-start justify-between gap-4">
+                  <h3 class="font-display text-2xl font-bold">Khmer Proverbs Archive</h3>
+                  <i class="ph-bold ph-arrow-up-right shrink-0 text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+                </div>
+                <p class="mb-5 max-w-[54ch] leading-relaxed text-dim">
+                  A community archive that keeps Khmer proverbs from fading between generations. Visitors browse, search, and submit entries that go through review before publishing.
+                </p>
+                <ul class="flex flex-wrap gap-2 font-mono text-xs text-faint">
+                  <li class="rounded-full border border-line px-3 py-1">JavaScript</li>
+                  <li class="rounded-full border border-line px-3 py-1">Search</li>
+                  <li class="rounded-full border border-lime/25 bg-lime/10 px-3 py-1 text-lime">Live</li>
+                </ul>
+              </div>
+            </a>
+          </article>
+
+          <!-- Student Tracking System -->
+          <article data-cat="systems" class="work-cell reveal group lg:col-span-3">
+            <a href="https://github.com/FooDine458/Java-Project" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col justify-center rounded-2xl border border-line bg-panel p-6 transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <span class="font-mono text-xs uppercase tracking-[0.16em] text-lime">Java</span>
+                <i class="ph-bold ph-arrow-up-right shrink-0 text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </div>
+              <h3 class="mb-2 font-display text-2xl font-bold">Student Tracking System</h3>
+              <p class="mb-5 max-w-[54ch] leading-relaxed text-dim">
+                Maven-built attendance tracker with a desktop UI, an object-oriented data model, and CSV export for record keeping.
+              </p>
+              <ul class="flex flex-wrap gap-2 font-mono text-xs text-faint">
+                <li class="rounded-full border border-line px-3 py-1">OOP</li>
+                <li class="rounded-full border border-line px-3 py-1">Maven</li>
+                <li class="rounded-full border border-line px-3 py-1">CSV</li>
+              </ul>
+            </a>
+          </article>
+
+          <!-- Text Encryption -->
+          <article data-cat="systems" class="work-cell reveal group lg:col-span-3">
+            <a href="https://github.com/FooDine458/Text-Encryption" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col justify-center rounded-2xl border border-line bg-panel p-6 transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <span class="font-mono text-xs uppercase tracking-[0.16em] text-lime">Python</span>
+                <i class="ph-bold ph-arrow-up-right shrink-0 text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </div>
+              <h3 class="mb-2 font-display text-2xl font-bold">Text Encryption</h3>
+              <p class="mb-5 max-w-[54ch] leading-relaxed text-dim">
+                Command-line tool for encrypting and decrypting text, written to understand how credential protection works rather than to reinvent it.
+              </p>
+              <ul class="flex flex-wrap gap-2 font-mono text-xs text-faint">
+                <li class="rounded-full border border-line px-3 py-1">Cryptography</li>
+                <li class="rounded-full border border-line px-3 py-1">CLI</li>
+              </ul>
+            </a>
+          </article>
+
+          <!-- This site: full-width closing cell, tinted so the grid ends on a beat -->
+          <article data-cat="web" class="work-cell reveal group md:col-span-2 lg:col-span-6">
+            <a href="https://github.com/FooDine458/portfolio" target="_blank" rel="noreferrer"
+              class="flex h-full flex-col gap-5 rounded-2xl border border-line bg-[linear-gradient(110deg,rgba(200,255,0,0.07),transparent_55%)] bg-panel p-6 transition-colors duration-300 hover:border-lime/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime md:flex-row md:items-center md:justify-between md:p-8">
+              <div>
+                <div class="mb-3 flex items-center gap-3">
+                  <span class="font-mono text-xs uppercase tracking-[0.16em] text-lime">You are here</span>
+                </div>
+                <h3 class="mb-2 font-display text-2xl font-bold md:text-3xl">This portfolio</h3>
+                <p class="max-w-[62ch] leading-relaxed text-dim">
+                  Hand-built with no framework. Static HTML and Tailwind, scroll reveals driven by IntersectionObserver, and a contact form that posts to a real endpoint.
+                </p>
+              </div>
+              <div class="flex shrink-0 items-center gap-4">
+                <ul class="hidden flex-wrap gap-2 font-mono text-xs text-faint lg:flex">
+                  <li class="rounded-full border border-line px-3 py-1">HTML</li>
+                  <li class="rounded-full border border-line px-3 py-1">Tailwind</li>
+                  <li class="rounded-full border border-line px-3 py-1">Vanilla JS</li>
+                </ul>
+                <i class="ph-bold ph-arrow-up-right text-lg text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </div>
+            </a>
+          </article>
+
+          <!-- Shown only when a filter matches nothing. Never reachable today, -->
+          <!-- but the grid should not be able to render as a blank rectangle.  -->
+          <p id="workEmpty" hidden class="col-span-full rounded-2xl border border-dashed border-line p-12 text-center text-dim">
+            No projects in that category yet.
+          </p>
+        </div>
+
+        <div class="reveal mt-10">
+          <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer"
+            class="inline-flex items-center gap-2.5 rounded-full border border-line px-6 py-3 font-semibold text-dim transition-colors duration-200 hover:border-lime/30 hover:bg-lime/5 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+            <i class="ph-bold ph-github-logo text-lg" aria-hidden="true"></i>
+            Everything on GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Toolkit: three grouped clusters, not a hairline rail ===== -->
+    <section id="toolkit" class="py-24 md:py-32">
+      <div class="mx-auto w-[min(1240px,92%)]">
+        <h2 class="reveal mb-12 max-w-[16ch] font-display text-[clamp(2.25rem,5.5vw,4.25rem)] font-extrabold leading-[0.95] tracking-[-0.025em]">
+          What I <span class="text-lime">work with</span>
+        </h2>
+
+        <!-- Columns sized to how much each cluster actually holds, so the row
+             reads as a considered split rather than three identical thirds. -->
+        <div class="grid gap-4 lg:grid-cols-12">
+          <article class="reveal rounded-2xl border border-line bg-panel p-7 lg:col-span-3">
+            <i class="ph-bold ph-brackets-curly mb-5 block text-3xl text-lime" aria-hidden="true"></i>
+            <h3 class="mb-3 font-display text-xl font-bold">Languages</h3>
+            <p class="mb-6 leading-relaxed text-dim">The languages I reach for when solving a problem or building an app.</p>
+            <ul class="flex flex-wrap gap-2 font-mono text-xs text-dim">
+              <li class="rounded-full border border-line px-3 py-1.5">JavaScript</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Python</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Java</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Dart</li>
+            </ul>
+          </article>
+
+          <article class="reveal rounded-2xl border border-line bg-panel p-7 lg:col-span-5">
+            <i class="ph-bold ph-devices mb-5 block text-3xl text-lime" aria-hidden="true"></i>
+            <h3 class="mb-3 font-display text-xl font-bold">Building interfaces</h3>
+            <p class="mb-6 leading-relaxed text-dim">Frameworks and tools I use to put something in front of a user.</p>
+            <ul class="flex flex-wrap gap-2 font-mono text-xs text-dim">
+              <li class="rounded-full border border-line px-3 py-1.5">React</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Flutter</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Tailwind</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Vite</li>
+              <li class="rounded-full border border-line px-3 py-1.5">HTML</li>
+              <li class="rounded-full border border-line px-3 py-1.5">CSS</li>
+            </ul>
+          </article>
+
+          <article class="reveal rounded-2xl border border-line bg-panel p-7 lg:col-span-4">
+            <i class="ph-bold ph-terminal-window mb-5 block text-3xl text-lime" aria-hidden="true"></i>
+            <h3 class="mb-3 font-display text-xl font-bold">Foundations</h3>
+            <p class="mb-6 leading-relaxed text-dim">The groundwork underneath the projects: how things are structured and shipped.</p>
+            <ul class="flex flex-wrap gap-2 font-mono text-xs text-dim">
+              <li class="rounded-full border border-line px-3 py-1.5">Data structures</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Algorithms</li>
+              <li class="rounded-full border border-line px-3 py-1.5">OOP</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Git</li>
+              <li class="rounded-full border border-line px-3 py-1.5">Linux</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact: statement left, working form right ===== -->
+    <section id="contact" class="border-t border-line bg-ink2 py-24 md:py-32">
+      <div class="mx-auto grid w-[min(1240px,92%)] gap-14 lg:grid-cols-[.85fr_1.15fr] lg:gap-20">
+
+        <div class="reveal">
+          <h2 class="mb-6 max-w-[12ch] font-display text-[clamp(2.25rem,5.5vw,4.25rem)] font-extrabold leading-[0.95] tracking-[-0.025em]">
+            Let's <span class="text-lime">work together</span>
+          </h2>
+          <p class="mb-10 max-w-[46ch] text-lg leading-relaxed text-dim">
+            Send me a message and it lands in my inbox. I reply to everything, usually within a day or two.
+          </p>
+
+          <ul class="space-y-px overflow-hidden rounded-2xl border border-line bg-line">
+            <li>
+              <a href="mailto:limfudine@gmail.com" class="group flex items-center gap-4 bg-ink2 p-5 transition-colors duration-200 hover:bg-panel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+                <i class="ph-bold ph-envelope-simple text-xl text-lime" aria-hidden="true"></i>
+                <span class="min-w-0 flex-1">
+                  <span class="block font-mono text-xs uppercase tracking-[0.16em] text-faint">Email</span>
+                  <span class="block truncate text-dim transition-colors group-hover:text-text">limfudine@gmail.com</span>
+                </span>
+                <i class="ph-bold ph-arrow-up-right text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" class="group flex items-center gap-4 bg-ink2 p-5 transition-colors duration-200 hover:bg-panel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+                <i class="ph-bold ph-github-logo text-xl text-lime" aria-hidden="true"></i>
+                <span class="min-w-0 flex-1">
+                  <span class="block font-mono text-xs uppercase tracking-[0.16em] text-faint">GitHub</span>
+                  <span class="block truncate text-dim transition-colors group-hover:text-text">FooDine458</span>
+                </span>
+                <i class="ph-bold ph-arrow-up-right text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-lime" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <span class="flex items-center gap-4 bg-ink2 p-5">
+                <i class="ph-bold ph-map-pin text-xl text-lime" aria-hidden="true"></i>
+                <span class="min-w-0 flex-1">
+                  <span class="block font-mono text-xs uppercase tracking-[0.16em] text-faint">Location</span>
+                  <span class="block truncate text-dim">Phnom Penh, Cambodia</span>
+                </span>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <div class="rounded-2xl border border-line bg-panel p-6 md:p-9">
+
+            <!-- Face 1: the form -->
+            <div id="faceForm" class="form-face is-active">
+              <form id="contactForm" novalidate>
+                <!-- Honeypot. Real people never see it, bots fill it in. -->
+                <div aria-hidden="true" class="absolute h-0 w-0 overflow-hidden opacity-0">
+                  <label for="company">Company</label>
+                  <input type="text" id="company" name="botcheck" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <div class="field mb-6" data-field="name">
+                  <label for="name" class="mb-2 block font-mono text-xs uppercase tracking-[0.16em] text-faint">Your name</label>
+                  <input type="text" id="name" name="name" autocomplete="name" required
+                    aria-describedby="nameError"
+                    class="w-full rounded-lg border border-line bg-ink px-4 py-3 text-text outline-none transition-colors duration-200 placeholder:text-faint focus:border-lime" />
+                  <p id="nameError" class="field-error mt-2 flex items-center gap-1.5 text-sm text-warn">
+                    <i class="ph-bold ph-warning-circle" aria-hidden="true"></i>Please tell me your name.
+                  </p>
+                </div>
+
+                <div class="field mb-6" data-field="email">
+                  <label for="email" class="mb-2 block font-mono text-xs uppercase tracking-[0.16em] text-faint">Your email</label>
+                  <input type="email" id="email" name="email" autocomplete="email" required
+                    aria-describedby="emailError"
+                    class="w-full rounded-lg border border-line bg-ink px-4 py-3 text-text outline-none transition-colors duration-200 placeholder:text-faint focus:border-lime" />
+                  <p id="emailError" class="field-error mt-2 flex items-center gap-1.5 text-sm text-warn">
+                    <i class="ph-bold ph-warning-circle" aria-hidden="true"></i>That email address does not look right.
+                  </p>
+                </div>
+
+                <div class="field mb-2" data-field="message">
+                  <label for="message" class="mb-2 block font-mono text-xs uppercase tracking-[0.16em] text-faint">Message</label>
+                  <textarea id="message" name="message" rows="5" required
+                    aria-describedby="messageError"
+                    class="w-full resize-y rounded-lg border border-line bg-ink px-4 py-3 text-text outline-none transition-colors duration-200 placeholder:text-faint focus:border-lime"></textarea>
+                  <p id="messageError" class="field-error mt-2 flex items-center gap-1.5 text-sm text-warn">
+                    <i class="ph-bold ph-warning-circle" aria-hidden="true"></i>Add a line or two so I know what this is about.
+                  </p>
+                </div>
+
+                <p id="formError" hidden class="mb-4 mt-4 flex items-start gap-2 rounded-lg border border-warn/30 bg-warn/10 p-4 text-sm text-warn">
+                  <i class="ph-bold ph-warning-circle mt-0.5 shrink-0" aria-hidden="true"></i>
+                  <span id="formErrorText">Something went wrong sending that. Please try again.</span>
+                </p>
+
+                <button type="submit" id="submitBtn"
+                  class="mt-6 flex w-full items-center justify-center gap-2.5 rounded-full bg-lime px-7 py-4 font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+                  <span id="submitLabel">Send message</span>
+                  <i id="submitIcon" class="ph-bold ph-paper-plane-tilt" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+
+            <!-- Face 2: sent -->
+            <div id="faceSent" class="form-face py-6 text-center" role="status" aria-live="polite">
+              <i class="ph-bold ph-check-circle mb-5 block text-5xl text-lime" aria-hidden="true"></i>
+              <h3 class="mb-3 font-display text-2xl font-bold">Message sent</h3>
+              <p class="mx-auto mb-8 max-w-[38ch] leading-relaxed text-dim">
+                Thanks for reaching out. It is in my inbox and I will get back to you soon.
+              </p>
+              <button type="button" id="resetBtn"
+                class="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 font-semibold text-dim transition-colors duration-200 hover:border-lime/30 hover:bg-lime/5 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+                Send another
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <footer class="footer py-5 border-t border-white/10 bg-bg">
-    <div class="mx-auto w-[min(1240px,92%)]">
-      <div class="footer-row grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-3 text-center md:text-left">
-        <div class="footer-left flex items-center justify-center md:justify-start gap-4">
-          <a class="ft-link text-[11px] uppercase tracking-[1px] text-muted hover:text-slate-100 transition" href="https://github.com/FooDine458" target="_blank" rel="noreferrer"><i class="fab fa-github text-limeaccent"></i> GitHub</a>
-          <a class="ft-link text-[11px] uppercase tracking-[1px] text-muted hover:text-slate-100 transition" href="https://linkedin.com/in/Lim Saifudine" target="_blank" rel="noreferrer"><i class="fab fa-linkedin-in text-limeaccent"></i> LinkedIn</a>
-        </div>
+  <footer class="border-t border-line py-10">
+    <div class="mx-auto flex w-[min(1240px,92%)] flex-col items-center justify-between gap-6 md:flex-row">
+      <p class="font-mono text-sm text-faint">
+        &copy; <span id="year">2026</span> Lim Saifudine
+      </p>
 
-        <div class="footer-mid flex items-center justify-center gap-3">
-          <a class="font-['Syne'] text-[20px] font-extrabold tracking-[1px]" href="#home">LS<span class="text-limeaccent">.</span></a>
-          <span class="text-[11px] tracking-[1px] text-muted">© <span id="year"></span> Lim Saifudine</span>
-        </div>
-
-        <div class="footer-right flex items-center justify-center md:justify-end">
-          <span class="text-[11px] tracking-[1px] text-muted"><i class="fas fa-location-dot text-limeaccent"></i>&nbsp;Phnom Penh, Cambodia</span>
-        </div>
-      </div>
+      <ul class="flex items-center gap-2">
+        <li>
+          <a href="https://github.com/FooDine458" target="_blank" rel="noreferrer" aria-label="GitHub"
+            class="grid h-11 w-11 place-items-center rounded-full border border-line text-dim transition-colors duration-200 hover:border-lime/30 hover:bg-lime/5 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+            <i class="ph-bold ph-github-logo text-lg" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:limfudine@gmail.com" aria-label="Email"
+            class="grid h-11 w-11 place-items-center rounded-full border border-line text-dim transition-colors duration-200 hover:border-lime/30 hover:bg-lime/5 hover:text-lime focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime">
+            <i class="ph-bold ph-envelope-simple text-lg" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
     </div>
   </footer>
 
