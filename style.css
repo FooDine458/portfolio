@@ -96,33 +96,61 @@ html {
   to   { transform: translate3d(-50%, 0, 0); }
 }
 
+/* Four copies of the logo list (see main.js), so translating half is two sets. */
+.marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
 .marquee-track {
-  animation: marqueeSlide 38s linear infinite;
+  animation: marqueeSlide 70s linear infinite;
   will-change: transform;
+}
+
+/* Logos are SVGs used as masks, so one rule recolours them: grey at rest,
+   the brand colour on hover. The mask sits on the span so the focus ring on
+   the link is not clipped by it. */
+.logo {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 6px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.logo span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #7d8b9e;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+  transition: background-color 0.3s var(--ease-out-expo);
+}
+
+.logo-sm {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.logo:hover,
+.logo:focus-visible {
+  transform: scale(1.2);
+}
+
+.logo:hover span,
+.logo:focus-visible span {
+  background: var(--brand, #c8ff00);
+}
+
+.logo:focus-visible {
+  outline: 2px solid #c8ff00;
+  outline-offset: 6px;
 }
 
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track {
   animation-play-state: paused;
-}
-
-/* --------------------------------------------------------------------------
-   Work grid filtering. Cells leave via transform + opacity, then are pulled
-   from layout so the bento reflows with no blank tiles.
-   -------------------------------------------------------------------------- */
-.work-cell {
-  transition:
-    opacity 0.4s var(--ease-out-expo),
-    transform 0.4s var(--ease-out-expo);
-}
-
-.work-cell.is-hidden {
-  display: none;
-}
-
-.work-cell.is-leaving {
-  opacity: 0;
-  transform: scale(0.97);
 }
 
 /* --------------------------------------------------------------------------
@@ -159,6 +187,121 @@ html {
 }
 
 /* --------------------------------------------------------------------------
+   Interaction. Panels lift on hover and press in on click; tiles warm up.
+   Transform and opacity only, plus colour.
+   The panel's own wrapper owns the scroll reveal, so these never fight it.
+   -------------------------------------------------------------------------- */
+.panel {
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    border-color 0.3s var(--ease-out-expo),
+    box-shadow 0.45s var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .panel:hover {
+    transform: translate3d(0, -5px, 0);
+    border-color: rgba(200, 255, 0, 0.3);
+    box-shadow: 0 28px 60px -28px rgba(200, 255, 0, 0.22);
+  }
+}
+
+.panel:active {
+  transform: scale(0.99);
+  transition-duration: 0.12s;
+}
+
+.tile {
+  transition: background-color 0.3s var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .tile:hover {
+    background-color: #141c26;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Floating header. Flat and borderless at the top of the page; once scrolled
+   it narrows into a blurred pill that drops 1rem from the top edge. The blur
+   is switched off while the mobile menu is open and is never transitioned:
+   a backdrop-filter on an ancestor would make the fixed menu overlay position
+   against the header instead of the viewport.
+   -------------------------------------------------------------------------- */
+.site-header[data-scrolled="true"]:not([data-open="true"]) {
+  background-color: rgba(10, 14, 19, 0.6);
+  border-color: rgba(255, 255, 255, 0.09);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.site-header[data-open="true"] {
+  background-color: rgba(10, 14, 19, 0.9);
+}
+
+@media (min-width: 768px) {
+  .site-header {
+    transition:
+      top 0.3s ease-out,
+      max-width 0.3s ease-out,
+      background-color 0.3s ease-out,
+      border-color 0.3s ease-out,
+      box-shadow 0.3s ease-out;
+  }
+
+  .site-nav {
+    transition: padding 0.3s ease-out;
+  }
+
+  .site-header[data-scrolled="true"]:not([data-open="true"]) {
+    top: 1rem;
+    max-width: 56rem;
+    box-shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.7);
+  }
+
+  .site-header[data-scrolled="true"] .site-nav {
+    padding-inline: 0.5rem;
+  }
+}
+
+/* Hamburger that morphs into a cross. */
+.menu-icon {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 14px;
+}
+
+.menu-icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform 0.3s var(--ease-out-expo),
+    opacity 0.2s ease-out;
+}
+
+.menu-icon span:nth-child(1) { top: 0; }
+.menu-icon span:nth-child(2) { top: 6px; }
+.menu-icon span:nth-child(3) { top: 12px; }
+
+#menuBtn[aria-expanded="true"] .menu-icon span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+#menuBtn[aria-expanded="true"] .menu-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#menuBtn[aria-expanded="true"] .menu-icon span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+@keyframes menuIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+#mobileMenu:not([hidden]) .menu-panel {
+  animation: menuIn 0.25s ease-out;
+}
+
+/* --------------------------------------------------------------------------
    Reduced motion. Everything above collapses to static, per WCAG.
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -181,4 +324,36 @@ html {
   .marquee-track {
     animation: none;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Lanyard. The strap and card rotate together about the top of the strap
+   (see main.js). The card gets a small extra lag about the clip so it
+   trails the strap instead of moving as one stiff plank.
+   -------------------------------------------------------------------------- */
+.lanyard-swing {
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.lanyard-strap {
+  background: linear-gradient(
+    90deg,
+    rgba(200, 255, 0, 0.55) 0 2px,
+    #0b0f14 2px calc(100% - 2px),
+    rgba(200, 255, 0, 0.55) calc(100% - 2px)
+  );
+}
+
+.lanyard-clip {
+  background: linear-gradient(90deg, #7d8793, #e9eef3 45%, #7d8793);
+}
+
+.lanyard-card {
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.lanyard-card.is-grabbed {
+  cursor: grabbing;
 }
